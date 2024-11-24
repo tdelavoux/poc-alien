@@ -107,15 +107,6 @@ export class Modale{
 
     // Insère une ligne de roll dans la table des résultats 
     async logRollResult(token, roll){
-  
-        // const target = document.getElementById('dice-table-content');
-        // if(!target){return;}
-        
-        // const config = await getModuleConfigration();
-        // const templatePath = `${config.templatePath}${this.templateRollLigne}`;
-        // const rollResults = RollService.getDicesFromRoll(roll);
-        // const view = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
-        // target.innerHTML += view;
 
         const target = document.querySelector(`#token-item-${token.getId()} .roll-result`);
         if(!target){return;}
