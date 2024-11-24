@@ -1,0 +1,41 @@
+{
+  "id": "CustomMods",
+  "title": "Demande de lancer de dés",
+  "description": "Le module permet à un GM de demander à un ou plusieurs joueurs de réaliser un lancé de déé et d'en reçevoir le résultat final",
+  "version": "1.0.0",
+  "compatibility": {
+    "minimum": "12",
+    "verified": "12"
+  },
+  "relationships": {
+    "systems": [
+      {
+        "id": "alienrpg",
+        "type": "system",
+        "compatibility": {
+          "minimum": "3.0.0"
+        }
+      }
+    ]
+  },
+  "socket": true,
+  "esmodules": [
+    "scripts/main.js"
+  ],
+  "styles": ["styles/main.css"],
+  "languages": [
+  ],
+  "media": [
+    {
+      "loop": false,
+      "flags": {}
+    }
+  ],
+  "authors": [
+    {
+      "name": "TeBow",
+      "flags": {}
+    }
+  ],
+  "license": "LICENSE.txt"
+}
