@@ -32,7 +32,7 @@ export class ChatMessageService{
 
     /**
      * TODO voir comment passer directement un callback au ChatMessage à sa création, 
-     * La méthode du Hook est dégeu et AlienRPG aide clairement à interragir avec son module 😢 
+     * La méthode du Hook est dégeu et AlienRPG aide clairement pas à interragir avec son module 😢 
      */
     static setMessageCreationListener(modale){
         Hooks.on("renderChatMessage" , (message, html, data) => {
