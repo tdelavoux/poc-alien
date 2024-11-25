@@ -28,6 +28,7 @@ export class Tokens{
         if (!this.token.actor?.system?.attributes[attributeName]) {
             console.error(`Attribute ${attributeName} not found`);
         }
+        console.warn('toto');
         return this.token.actor?.system?.attributes[attributeName]?.value ?? 0;
     }
 
