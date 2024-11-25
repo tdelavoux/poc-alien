@@ -83,10 +83,11 @@ export class Tokens{
     static getPlayersFromList(tokenList){
         try{
             return tokenList.filter(token => {
+                console.warn(token.actor.type);
                 return token.actor && 
                        token.actor.type !== "creature" 
-                    // TODO ne display pas les PNJ ? 
-                    //    && token.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                       && token.actor.type !== "vehicles"
+                      // && token.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
             });
         }catch{
             console.error('Not a suitable list of tokens');

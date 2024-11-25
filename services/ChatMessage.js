@@ -49,18 +49,14 @@ export class ChatMessageService{
             // les salow on encodé en string ! Du coup on doit margouliner comme jaja, c'est de la grosse daube. TODO corriger ça avec un truc plus stable
             // Renvera une erreur si pas de token sélectionné. 
             // TODO soit aller chercher un Token rattaché au joueur, soit changer le systeme via .rollable 
-            if(message.isRoll){
+            // TODO les messages de Panique sont des putains re rolls ? la blague. obligé de filtrer sur un flag random ....
+            if(message.isRoll && message.flags?.tactorid){
                 const tokenId = message.speaker?.token ?? HtmlService.stringToHtmlElement(message.content)?.dataset.actorId;
                 const token =  Tokens.getTokenFromId(tokenId);
                 const roll = message.rolls[0];
                 if (roll && token) {
                     modale.logRollResult(token, roll);
                 }
-            }
-
-            //TODO voir quand il est plus intelligent de réaliser un check pour la MAJ de la panique
-            if(message.flags?.panic){
-                const tokenId = message.speaker?.token;
             }
         });
     }
