@@ -126,9 +126,7 @@ export class Modale{
     async syncPanic(... tokens){
         
         const config = await getModuleConfigration();
-
         [...tokens].forEach(async (token) => {
-
             token = token instanceof Tokens ? token : Tokens.getTokenFromId(token?.id ?? token);
             const target = document.querySelector(`#token-item-${token.getId()} .panic-state`);
             if(!target){return;}

@@ -36,7 +36,6 @@ export class ChatMessageService{
      */
     static setMessageCreationListener(modale){
         Hooks.on("renderChatMessage" , (message, html, data) => {
-           // console.warn(message, data)
             html.find('.rollable')?.on('click', (element) => {
                 const button  = element.currentTarget;
                 const dataset = button.dataset;
