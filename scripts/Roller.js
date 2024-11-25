@@ -28,14 +28,15 @@ export class Roller{
 
         const chatMessageData = {
             whisper: users ? [users] : gmUsers.map(u => u.id),
-            blind: true,
             content: content,
             flags: {
-                "alienrpg-roll-request" : {
+                "GmRollRequest" : {
                     interactiveButton: true,
-                    rollType: this.key
+                    rollType: this.key,
+                    allowDelete : [users]
                 },
-            }
+            },
+            permission: 3
         };
         await ChatMessage.create(chatMessageData);
     }

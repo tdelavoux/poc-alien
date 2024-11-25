@@ -98,9 +98,9 @@ export class Modale{
             if(!token){return}
             const roll  = new Roller(token, rollType, rollKey);
 
-            const owningPlayer = token.getOwners();
-            
-            rollForAbsent && (!owningPlayer || !owningPlayer?.active) ? 
+            const owningPlayer = token.getOwners(true);
+
+            rollForAbsent && !owningPlayer ? 
                 roll.characterRoll() :
                 roll.createRollNotification(owningPlayer?.id);
         });

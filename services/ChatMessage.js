@@ -9,10 +9,10 @@ export class ChatMessageService{
      * @param {HTMLElement} message 
      * @returns 
      */
-    static deleteMessageFromDomElement(message){
+    static async deleteMessageFromDomElement(message){
         if(!message){return}
         const id = message.dataset.messageId;
-        const instance = ChatMessage.get(id)
+        const instance = ChatMessage.get(id);
         instance?.delete();
         game.socket.emit('delete-message-request', {
             action: 'removeMessage',
@@ -45,14 +45,20 @@ export class ChatMessageService{
             });
         });
 
+        Hooks.on("preDeleteChatMessage", (message, options, userId) => {
+            return message.flags?.GmRollRequest?.allowDelete?.includes(userId) ||game.user.isGM;
+        });
+
         Hooks.on("createChatMessage", (message) => {
-            // les salow on encodé en string ! Du coup on doit margouliner comme jaja, c'est de la grosse daube. TODO corriger ça avec un truc plus stable
-            // Renvera une erreur si pas de token sélectionné. 
-            // TODO soit aller chercher un Token rattaché au joueur, soit changer le systeme via .rollable 
-            // TODO les messages de Panique sont des putains re rolls ? la blague. obligé de filtrer sur un flag random ....
+
+            // On peux modifier les donnéer du message en temps réel du coup voir les poosibilités ! 
+            // TODO les messages de Panique sont des putains re rolls ? la blague. obligé de filtrer sur un flag random .... Voir pour garder que les roll natifs
             if(message.isRoll && message.flags?.tactorid){
                 const tokenId = message.speaker?.token ?? HtmlService.stringToHtmlElement(message.content)?.dataset.actorId;
                 const token =  Tokens.getTokenFromId(tokenId);
+                message.update({
+                    speaker: {alias: token.getName()}
+                });
                 const roll = message.rolls[0];
                 if (roll && token) {
                     modale.logRollResult(token, roll);

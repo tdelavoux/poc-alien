@@ -62,8 +62,13 @@ export class Tokens{
         return this.token.name;
     }
 
-    getOwners(){
-        return game?.users?.find(u => u.character === this.token.actor);
+    /**
+     * Récupère les owners d'un token. On peut forcer à récupérer uniquement les actifs
+     * @param {Boolean} actifs 
+     * @returns 
+     */
+    getOwners(actifs = false){
+        return game?.users?.find(u => u.character === this.token.actor && (actifs ? u.active : true));
     }
 
     tokenIsValidActor(){
