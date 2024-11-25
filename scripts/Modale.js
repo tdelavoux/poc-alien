@@ -117,6 +117,8 @@ export class Modale{
         const rollResults = RollService.getDicesFromRoll(roll);
         const view = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
         target.innerHTML = view;
+
+        await this.syncPanic(token);
     }
 
     // Met a jour le / les états de panique pour les tokens ciblés
