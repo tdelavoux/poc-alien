@@ -15,7 +15,10 @@
                 <div class="token-item-content flex">
                     <img src="{{document.texture.src}}" alt="{{name}}">
                     <span class="flex-1 elipsis">{{name}}</span>
-                    <span class="roll-result flex"></span>
+                    <span class="roll-result flex">
+                        <span class="last-roll-result"></span>
+                        <span class="panic-state"></span>
+                    </span>
                 </div>
                 <div class="container-stars">
                     <div class="stars"></div>
@@ -61,17 +64,4 @@
             </div>
         </button>
     </div>
-
-    <table class="dice-table table">
-        <thead>
-            <tr>
-                <th>Token</th>
-                <th><i class="fa-solid fa-dice"></i>Success</th>
-                <th class="yellow"><i class="fa-solid fa-dice"></i>Stress</th>
-                <th>😱 Panik</th>
-            </tr>
-        </thead>
-        <tbody id="dice-table-content">
-        </tbody>
-    </table>
 </divW>

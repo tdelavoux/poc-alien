@@ -5,6 +5,7 @@
   --light:#b6e7e9;
   --white: #ffff;
   --yellow: #e3b536;
+  --red: #e76666;
 }
 
 .socials-icons{
@@ -156,7 +157,8 @@ section:not(.modal-content){
 .flex-1{flex:1;}
 .grid-4c{display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px;}
 .yellow{color:var(--yellow)}
-i{margin-right:0.5em;}
+.red{color: var(--red)}
+.modal-content i{margin-right:0.5em;}
 .center{ text-align: center;}
 .elipsis{white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
 

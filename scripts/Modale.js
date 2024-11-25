@@ -2,7 +2,6 @@ import { Tokens } from '../services/Tokens.js';
 import { getModuleConfigration } from './config.js';
 import { getAlienConfigration } from '../services/Alien.js';
 import { Roller } from './Roller.js';
-import { HtmlService } from "../services/HtmlService.js";
 import { RollService } from '../services/RollService.js';
 
 // TODO géréer si pas de tokens actifs ou pas de skills / attributs trouvés ? 
@@ -20,6 +19,7 @@ export class Modale{
         this.rootNode  = null;
         this.template    = `modale.html`;
         this.templateRollLigne = `roll-line.html`;
+        this.templatePanic = `panic-line.html`;
         this.trigger?.addEventListener('click', () => this.toggle());
     }
 
@@ -31,7 +31,7 @@ export class Modale{
         
         const templatePath = `${config.templatePath}${self.template}`;
 
-        const tokens = Tokens.getPlayersFromList(canvas.tokens.placeables);
+        const tokens     = Tokens.getPlayersFromList(canvas.tokens.placeables);
         const skills     =  alienConfig.skills;
         const attributes =  alienConfig.attributes;
 
@@ -42,6 +42,7 @@ export class Modale{
             buttons: {},
             render: (html) => {
                 self.applyFormListeners(html);
+                this.syncPanic(...tokens);
             },
             close: () => {
                 self.rootNode = null;
@@ -108,7 +109,7 @@ export class Modale{
     // Insère une ligne de roll dans la table des résultats 
     async logRollResult(token, roll){
 
-        const target = document.querySelector(`#token-item-${token.getId()} .roll-result`);
+        const target = document.querySelector(`#token-item-${token.getId()} .last-roll-result`);
         if(!target){return;}
 
         const config = await getModuleConfigration();
@@ -116,5 +117,28 @@ export class Modale{
         const rollResults = RollService.getDicesFromRoll(roll);
         const view = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
         target.innerHTML = view;
+    }
+
+    // Met a jour le / les états de panique pour les tokens ciblés
+    // Accepte les Tokens du module, les Token d'Alien & les token ID
+    async syncPanic(... tokens){
+        
+        const config = await getModuleConfigration();
+
+        [...tokens].forEach(async (token) => {
+
+            token = token instanceof Tokens ? token : Tokens.getTokenFromId(token?.id ?? token);
+            const target = document.querySelector(`#token-item-${token.getId()} .panic-state`);
+            if(!target){return;}
+
+            const panic = {
+                isPanic: token.getPanicValue(),
+                panicMessage: token.getLastPanicMessage()
+            };
+
+            const templatePath = `${config.templatePath}${this.templatePanic}`;
+            const view = await renderTemplate(templatePath, {token: token.token, panic:panic });
+            target.innerHTML = view;
+        });
     }
 }

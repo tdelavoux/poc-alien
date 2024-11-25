@@ -39,6 +39,21 @@ export class Tokens{
         return this.token.actor.system.header.stress.value;
     }
 
+    /**
+     * Renvoie l'état de panique d'un token
+     * TODO factchecker le bon fonctionnement. La value à un défini un état paniqué. Le last roll contient la value de celle-çi
+     */
+    getPanicValue(){
+        return this.token.actor.system?.general?.panic?.value === 1 ? this.token.actor.system?.general?.panic?.lastRoll : 0;
+    }
+
+    /**
+     * Renvoie le dernier message de panique associé au token
+     */
+    getLastPanicMessage(){
+        return this.token.actor.morePanic(this.getPanicValue());
+    }
+
     getId(){
         return this.token.id;
     }
