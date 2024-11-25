@@ -87,7 +87,7 @@ export class Modale{
         const selectedSkill     = document.querySelector('.skill-item input:checked');
         const rollType = selectedAttribute ? Roller.RollTypeEnum.attribute : Roller.RollTypeEnum.skill;
         const rollKey  = selectedAttribute ? selectedAttribute?.value : selectedSkill?.value;
-        const rollForAbsent = document.querySelector('#rollForMissing:checked')?.checked; // TODO gérer la checkbox
+        const rollForAbsent = document.querySelector('#rollForMissing:checked')?.checked;
 
         if(selectedTokens.length < 1 || !rollKey){
             ui.notifications.warn("You need to select at least a token and a skill or attribute");
@@ -98,8 +98,8 @@ export class Modale{
             if(!token){return}
             const roll  = new Roller(token, rollType, rollKey);
 
-            const owningPlayer = this.token?.actor?.hasPlayerOwner ? game?.users?.find(u => u.character === token.actor) : null;
-
+            const owningPlayer = token.getOwners();
+            
             rollForAbsent && (!owningPlayer || !owningPlayer?.active) ? 
                 roll.characterRoll() :
                 roll.createRollNotification(owningPlayer?.id);

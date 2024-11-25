@@ -28,7 +28,6 @@ export class Tokens{
         if (!this.token.actor?.system?.attributes[attributeName]) {
             console.error(`Attribute ${attributeName} not found`);
         }
-        console.warn('toto');
         return this.token.actor?.system?.attributes[attributeName]?.value ?? 0;
     }
 
@@ -63,6 +62,10 @@ export class Tokens{
         return this.token.name;
     }
 
+    getOwners(){
+        return game?.users?.find(u => u.character === this.token.actor);
+    }
+
     tokenIsValidActor(){
         return !!this.token && !!this.token.actor;
     }
@@ -77,6 +80,7 @@ export class Tokens{
 
     /**
      * Renvoie la liste des tokens de joueurs. Retire les monstres et les PNJ Hostiles
+     * TODO gerer en settings les affichages
      * 
      * @param {Object} tokenList 
      * @returns 
@@ -84,11 +88,10 @@ export class Tokens{
     static getPlayersFromList(tokenList){
         try{
             return tokenList.filter(token => {
-                console.warn(token.actor.type);
                 return token.actor && 
                        token.actor.type !== "creature" 
                        && token.actor.type !== "vehicles"
-                      // && token.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                       && token.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
             });
         }catch{
             console.error('Not a suitable list of tokens');
