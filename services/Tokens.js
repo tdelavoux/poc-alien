@@ -62,26 +62,34 @@ export class Tokens{
         return this.token.name;
     }
 
+    getActor(){
+        return this.token.actor;
+    }
+
     /**
      * Récupère les owners d'un token. On peut forcer à récupérer uniquement les actifs
      * @param {Boolean} actifs 
      * @returns 
      */
     getOwners(actifs = false){
-        return game?.users?.find(u => u.character === this.token.actor && (actifs ? u.active : true));
+        return game?.users?.filter(u => u.character === this.token.actor && (actifs ? u.active : true));
     }
 
     tokenIsValidActor(){
         return !!this.token && !!this.token.actor;
     }
 
+    // ----------------------------------------------------------------------------------------------------------------
+
     static getTokenFromId(tokenId){
         const token = canvas.tokens.get(tokenId);
         return new this(token); 
     }
 
-
-    // ----------------------------------------------------------------------------------------------------------------
+    static getTokenFromActorId(actorId){
+        const token = canvas.tokens.placeables.find(token => token.actor?.id === actorId);
+        return new this(token);
+    }
 
     /**
      * Renvoie la liste des tokens de joueurs. Retire les monstres et les PNJ Hostiles
