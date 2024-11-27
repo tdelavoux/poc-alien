@@ -16,6 +16,20 @@ Hooks.once("ready", async () => {
         const modale = new Modale(document.querySelector("#chat-controls .chat-control-icon"));
         ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
         ChatMessageService.setMessageCreationListener(modale);
+
+        Hooks.on('updateCanvas', (scene) => {
+            // TODO comprendre comment le swap de caneva se fait
+            console.warn('changement de scène')
+        });
+        
+        Hooks.on('createToken', (token) => {
+            modale.update();
+        });
+        
+        // Token deleted
+        Hooks.on('deleteToken', (token) => {
+            modale.update();
+        });
     }
 
     ChatMessageService.setCommonListeners();

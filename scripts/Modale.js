@@ -28,13 +28,11 @@ export class Modale{
         const self = this;
         const config = await getModuleConfigration();
         const alienConfig = await getAlienConfigration();
-        
-        const templatePath = `${config.templatePath}${self.template}`;
-
+        // Obligé de tout loader pour un render 🥲
+        const templatePath = `${config.templatePath}${this.template}`;
         const tokens     = Tokens.getPlayersFromList(canvas.tokens.placeables);
         const skills     =  alienConfig.skills;
         const attributes =  alienConfig.attributes;
-
         const content = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
         const dialog  = new Dialog({
             title: `${config.moduleId} - ${config.moduleTitle}`,
@@ -42,11 +40,13 @@ export class Modale{
             buttons: {},
             render: (html) => {
                 // JQ 🤮
-                let dialogElement = html.closest('.dialog'); 
-                let header = dialogElement.find('.window-header .close');
-                let customButton = $('<a class="header-button control minimize">Minimize</a>');
-                customButton?.on('click', () => self.rootNode.minimize());
-                header.before(customButton);
+                let dialogElement = html?.closest('.dialog'); 
+                if(!dialogElement.find('.header-button.minimize')){
+                    let header = dialogElement?.find('.window-header .close');
+                    let customButton = $('<a class="header-button control minimize">Minimize</a>');
+                    customButton?.on('click', () => self.rootNode?.minimize());
+                    header.before(customButton);
+                }
 
                 self.applyFormListeners(html);
                 this.syncPanic(...tokens);
@@ -67,6 +67,20 @@ export class Modale{
             return;
         }
         this.rootNode.close();
+    }
+
+    async update(){
+        if(!this.rootNode){return;}
+        // Obligé de tout loader pour un render 🥲
+        const config = await getModuleConfigration();
+        const alienConfig = await getAlienConfigration();
+        const templatePath = `${config.templatePath}${this.template}`;
+        const tokens     = Tokens.getPlayersFromList(canvas.tokens.placeables);
+        const skills     =  alienConfig.skills;
+        const attributes =  alienConfig.attributes;
+        const content = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
+        this.rootNode.data.content = content;
+        this.rootNode?.render(true);
     }
 
     // Ajoute l'interactivité dans le formulaire
@@ -90,6 +104,11 @@ export class Modale{
         cleanupButton.addEventListener('click', () => {
             ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
             ui.notifications.warn("Pending Notifications has been cleared");
+        });
+
+        const updateButton = document.getElementById('update-modal-content');
+        updateButton.addEventListener('click', () => {
+            this.update();
         });
     }
 
@@ -154,4 +173,6 @@ export class Modale{
             target.innerHTML = view;
         });
     }
+
+
 }
