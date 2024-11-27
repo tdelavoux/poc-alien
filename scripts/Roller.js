@@ -1,4 +1,5 @@
 import { getAlienConfigration } from '../services/Alien.js';
+import { ChatMessageService } from '../services/ChatMessage.js';
 import { getModuleConfigration } from './config.js';
 
  // TODO gérer les pushs
@@ -19,26 +20,25 @@ export class Roller{
         this.template   = 'rollRequest.html';
     }
 
-    async createRollNotification(users = null){
+    async createRollNotification(users = []){
         await this.determineDicesForRoll();
-        const gmUsers = game.users.filter(u => u.isGM);
         const config = await getModuleConfigration();
         const templatePath = `${config.templatePath}${this.template}`;
         const content = await renderTemplate(templatePath, {tokenId: this.token.getId(), tokenName: this.token.getName(), label:this.rollName, number: this.diceNumber});
 
         const chatMessageData = {
-            whisper: users ? [users] : gmUsers.map(u => u.id),
+            whisper: users,
+            type: CONST.CHAT_MESSAGE_STYLES.OTHER,
             content: content,
             flags: {
                 "GmRollRequest" : {
                     interactiveButton: true,
-                    rollType: this.key,
-                    allowDelete : [users]
+                    rollType: this.key
                 },
-            },
-            permission: 3
+            }
         };
-        await ChatMessage.create(chatMessageData);
+
+        await ChatMessageService.create(chatMessageData);
     }
 
     /**

@@ -3,9 +3,9 @@ import { getModuleConfigration } from './config.js';
 import { getAlienConfigration } from '../services/Alien.js';
 import { Roller } from './Roller.js';
 import { RollService } from '../services/RollService.js';
+import { ChatMessageService } from '../services/ChatMessage.js';
 
 // TODO géréer si pas de tokens actifs ou pas de skills / attributs trouvés ? 
-// TODO aller plus loin sauvegarder les derniers rools dans le localstorage pour ne pas détruire l'historique en fermant la fenêtre ? Sinon minimiser la fenêtre au max pour ne pas perdre le contenur
 export class Modale{
     
     constructor(trigger) {
@@ -39,7 +39,6 @@ export class Modale{
         const dialog  = new Dialog({
             title: `${config.moduleId} - ${config.moduleTitle}`,
             content: content,
-            buttons: {},
             render: (html) => {
                 self.applyFormListeners(html);
                 this.syncPanic(...tokens);
@@ -78,6 +77,12 @@ export class Modale{
         html.find('.skill-item input').on('change', function() {
             this.checked && html.find('.attribute-item input').prop('checked', false);
         });
+
+        const cleanupButton = document.getElementById('cleanup-pending-requests');
+        cleanupButton.addEventListener('click', () => {
+            ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
+            ui.notifications.warn("Pending Notifications has been cleared");
+        });
     }
 
     // Lancement du traitement du formulaire
@@ -98,11 +103,11 @@ export class Modale{
             if(!token){return}
             const roll  = new Roller(token, rollType, rollKey);
 
-            const owningPlayer = token.getOwners(true);
+            const owningPlayers = token.getOwners(true);
 
-            rollForAbsent && !owningPlayer ? 
+            rollForAbsent && owningPlayers.length === 0 ? 
                 roll.characterRoll() :
-                roll.createRollNotification(owningPlayer?.id);
+                roll.createRollNotification(owningPlayers?.map((el) => el.id));
         });
     }
 
