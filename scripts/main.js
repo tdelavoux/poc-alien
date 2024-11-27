@@ -15,7 +15,6 @@ Hooks.once("ready", async () => {
     const modale = new Modale(document.querySelector("#chat-controls .chat-control-icon"));
 
     // Initialise les listener du Chat de nettoyage des éléments périmés.
-    // TODO faire uniquement pour les GM pour éviter les suppresions intempestives par les joueurs
-    ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
+    game.user.isGM && ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
     ChatMessageService.setMessageCreationListener(modale);
 });
