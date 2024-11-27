@@ -24,6 +24,8 @@
                     <div class="stars"></div>
                 </div>
             </label>
+        {{else}}
+            <span class="red">No Tokens avaiable. Please make sure you have tokens on the Canvas</span>
         {{/each}}
     </section>
 
@@ -34,6 +36,8 @@
                 <input type="radio" name="selectedAttribute" value="{{@key}}">
                 <span>{{label}}</span>
             </label>
+        {{else}}
+            <span class="red">Unable to load Attributes from AlienRPG</span>
         {{/each}}
     </section>
 
@@ -44,6 +48,8 @@
                 <input type="radio" name="selectedSkill" value="{{@key}}">
                 <span>{{label}}</span>
             </label>
+        {{else}}
+            <span class="red">Unable to load Skills from AlienRPG</span>
         {{/each}}
     </section>
 
