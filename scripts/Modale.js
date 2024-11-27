@@ -2,11 +2,10 @@ import { Tokens } from '../services/Tokens.js';
 import { getModuleConfigration } from './config.js';
 import { getAlienConfigration } from '../services/Alien.js';
 import { Roller } from './Roller.js';
-import { HtmlService } from "../services/HtmlService.js";
 import { RollService } from '../services/RollService.js';
+import { ChatMessageService } from '../services/ChatMessage.js';
 
 // TODO géréer si pas de tokens actifs ou pas de skills / attributs trouvés ? 
-// TODO aller plus loin sauvegarder les derniers rools dans le localstorage pour ne pas détruire l'historique en fermant la fenêtre ? Sinon minimiser la fenêtre au max pour ne pas perdre le contenur
 export class Modale{
     
     constructor(trigger) {
@@ -20,6 +19,7 @@ export class Modale{
         this.rootNode  = null;
         this.template    = `modale.html`;
         this.templateRollLigne = `roll-line.html`;
+        this.templatePanic = `panic-line.html`;
         this.trigger?.addEventListener('click', () => this.toggle());
     }
 
@@ -31,7 +31,7 @@ export class Modale{
         
         const templatePath = `${config.templatePath}${self.template}`;
 
-        const tokens = Tokens.getPlayersFromList(canvas.tokens.placeables);
+        const tokens     = Tokens.getPlayersFromList(canvas.tokens.placeables);
         const skills     =  alienConfig.skills;
         const attributes =  alienConfig.attributes;
 
@@ -41,7 +41,15 @@ export class Modale{
             content: content,
             buttons: {},
             render: (html) => {
+                // JQ 🤮
+                let dialogElement = html.closest('.dialog'); 
+                let header = dialogElement.find('.window-header .close');
+                let customButton = $('<a class="header-button control minimize">Minimize</a>');
+                customButton?.on('click', () => self.rootNode.minimize());
+                header.before(customButton);
+
                 self.applyFormListeners(html);
+                this.syncPanic(...tokens);
             },
             close: () => {
                 self.rootNode = null;
@@ -77,6 +85,12 @@ export class Modale{
         html.find('.skill-item input').on('change', function() {
             this.checked && html.find('.attribute-item input').prop('checked', false);
         });
+
+        const cleanupButton = document.getElementById('cleanup-pending-requests');
+        cleanupButton.addEventListener('click', () => {
+            ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
+            ui.notifications.warn("Pending Notifications has been cleared");
+        });
     }
 
     // Lancement du traitement du formulaire
@@ -86,7 +100,7 @@ export class Modale{
         const selectedSkill     = document.querySelector('.skill-item input:checked');
         const rollType = selectedAttribute ? Roller.RollTypeEnum.attribute : Roller.RollTypeEnum.skill;
         const rollKey  = selectedAttribute ? selectedAttribute?.value : selectedSkill?.value;
-        const rollForAbsent = document.querySelector('#rollForMissing:checked')?.checked; // TODO gérer la checkbox
+        const rollForAbsent = document.querySelector('#rollForMissing:checked')?.checked;
 
         if(selectedTokens.length < 1 || !rollKey){
             ui.notifications.warn("You need to select at least a token and a skill or attribute");
@@ -97,27 +111,18 @@ export class Modale{
             if(!token){return}
             const roll  = new Roller(token, rollType, rollKey);
 
-            const owningPlayer = this.token?.actor?.hasPlayerOwner ? game?.users?.find(u => u.character === token.actor) : null;
+            const owningPlayers = token.getOwners(true);
 
-            rollForAbsent && (!owningPlayer || !owningPlayer?.active) ? 
+            rollForAbsent && owningPlayers.length === 0 ? 
                 roll.characterRoll() :
-                roll.createRollNotification(owningPlayer?.id);
+                roll.createRollNotification(owningPlayers?.map((el) => el.id));
         });
     }
 
     // Insère une ligne de roll dans la table des résultats 
     async logRollResult(token, roll){
-  
-        // const target = document.getElementById('dice-table-content');
-        // if(!target){return;}
-        
-        // const config = await getModuleConfigration();
-        // const templatePath = `${config.templatePath}${this.templateRollLigne}`;
-        // const rollResults = RollService.getDicesFromRoll(roll);
-        // const view = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
-        // target.innerHTML += view;
 
-        const target = document.querySelector(`#token-item-${token.getId()} .roll-result`);
+        const target = document.querySelector(`#token-item-${token.getId()} .last-roll-result`);
         if(!target){return;}
 
         const config = await getModuleConfigration();
@@ -125,5 +130,28 @@ export class Modale{
         const rollResults = RollService.getDicesFromRoll(roll);
         const view = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
         target.innerHTML = view;
+
+        await this.syncPanic(token);
+    }
+
+    // Met a jour le / les états de panique pour les tokens ciblés
+    // Accepte les Tokens du module, les Token d'Alien & les token ID
+    async syncPanic(... tokens){
+        
+        const config = await getModuleConfigration();
+        [...tokens].forEach(async (token) => {
+            token = token instanceof Tokens ? token : Tokens.getTokenFromId(token?.id ?? token);
+            const target = document.querySelector(`#token-item-${token.getId()} .panic-state`);
+            if(!target){return;}
+
+            const panic = {
+                isPanic: token.getPanicValue(),
+                panicMessage: token.getLastPanicMessage()
+            };
+
+            const templatePath = `${config.templatePath}${this.templatePanic}`;
+            const view = await renderTemplate(templatePath, {token: token.token, panic:panic });
+            target.innerHTML = view;
+        });
     }
 }

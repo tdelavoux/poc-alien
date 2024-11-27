@@ -39,6 +39,21 @@ export class Tokens{
         return this.token.actor.system.header.stress.value;
     }
 
+    /**
+     * Renvoie l'état de panique d'un token
+     * TODO factchecker le bon fonctionnement. La value à un défini un état paniqué. Le last roll contient la value de celle-çi
+     */
+    getPanicValue(){
+        return this.token.actor.system?.general?.panic?.value === 1 ? this.token.actor.system?.general?.panic?.lastRoll : 0;
+    }
+
+    /**
+     * Renvoie le dernier message de panique associé au token
+     */
+    getLastPanicMessage(){
+        return this.token.actor.morePanic(this.getPanicValue());
+    }
+
     getId(){
         return this.token.id;
     }
@@ -47,20 +62,38 @@ export class Tokens{
         return this.token.name;
     }
 
+    getActor(){
+        return this.token.actor;
+    }
+
+    /**
+     * Récupère les owners d'un token. On peut forcer à récupérer uniquement les actifs
+     * @param {Boolean} actifs 
+     * @returns 
+     */
+    getOwners(actifs = false){
+        return game?.users?.filter(u => u.character === this.token.actor && (actifs ? u.active : true));
+    }
+
     tokenIsValidActor(){
         return !!this.token && !!this.token.actor;
     }
+
+    // ----------------------------------------------------------------------------------------------------------------
 
     static getTokenFromId(tokenId){
         const token = canvas.tokens.get(tokenId);
         return new this(token); 
     }
 
-
-    // ----------------------------------------------------------------------------------------------------------------
+    static getTokenFromActorId(actorId){
+        const token = canvas.tokens.placeables.find(token => token.actor?.id === actorId);
+        return new this(token);
+    }
 
     /**
      * Renvoie la liste des tokens de joueurs. Retire les monstres et les PNJ Hostiles
+     * TODO gerer en settings les affichages
      * 
      * @param {Object} tokenList 
      * @returns 
@@ -70,8 +103,8 @@ export class Tokens{
             return tokenList.filter(token => {
                 return token.actor && 
                        token.actor.type !== "creature" 
-                    // TODO ne display pas les PNJ ? 
-                    //    && token.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                       && token.actor.type !== "vehicles"
+                       && token.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
             });
         }catch{
             console.error('Not a suitable list of tokens');

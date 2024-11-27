@@ -11,11 +11,12 @@ Hooks.once("ready", async () => {
     // Charge une première fois les données de configuration pour que les autres modules utilisent le cache du singleton
     config = await getModuleConfigration();
 
-    // Initialise la fenêtre modale
-    const modale = new Modale(document.querySelector("#chat-controls .chat-control-icon"));
+    // Initialise la fenêtre modale et les listeners pour les GM
+    if(game.user.isGM){
+        const modale = new Modale(document.querySelector("#chat-controls .chat-control-icon"));
+        ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
+        ChatMessageService.setMessageCreationListener(modale);
+    }
 
-    // Initialise les listener du Chat de nettoyage des éléments périmés.
-    // TODO faire uniquement pour les GM pour éviter les suppresions intempestives par les joueurs
-    ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
-    ChatMessageService.setMessageCreationListener(modale);
+    ChatMessageService.setCommonListeners();
 });

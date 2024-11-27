@@ -15,7 +15,10 @@
                 <div class="token-item-content flex">
                     <img src="{{document.texture.src}}" alt="{{name}}">
                     <span class="flex-1 elipsis">{{name}}</span>
-                    <span class="roll-result flex"></span>
+                    <span class="roll-result flex">
+                        <span class="last-roll-result"></span>
+                        <span class="panic-state"></span>
+                    </span>
                 </div>
                 <div class="container-stars">
                     <div class="stars"></div>
@@ -47,6 +50,7 @@
     <h3 class="module-title">Paramètres complémentaires</h3>
     <section>
         <label class="param-item flex">
+            <!-- TODO mettre la checkbox en  -->
             <input id="rollForMissing" type="checkbox" checked>
             Lancer automatique pour les absents
         </label>
@@ -54,24 +58,11 @@
         
     <!-- TODO use dialog buttons instead ? -->
     <div class="btn-line flex">
-        <button id="rollDice">
+        <button id="cleanup-pending-requests" class="action-button">
+            Clean pending requests
+        </button>
+        <button id="rollDice" class="action-button">
             <strong>Send Rolls Request !</strong>
-            <div id="container-stars">
-                <div id="stars"></div>
-            </div>
         </button>
     </div>
-
-    <table class="dice-table table">
-        <thead>
-            <tr>
-                <th>Token</th>
-                <th><i class="fa-solid fa-dice"></i>Success</th>
-                <th class="yellow"><i class="fa-solid fa-dice"></i>Stress</th>
-                <th>😱 Panik</th>
-            </tr>
-        </thead>
-        <tbody id="dice-table-content">
-        </tbody>
-    </table>
 </divW>
