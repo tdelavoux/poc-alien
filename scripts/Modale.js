@@ -39,6 +39,7 @@ export class Modale{
         const dialog  = new Dialog({
             title: `${config.moduleId} - ${config.moduleTitle}`,
             content: content,
+            buttons: {},
             render: (html) => {
                 self.applyFormListeners(html);
                 this.syncPanic(...tokens);

@@ -46,21 +46,10 @@ export class ChatMessageService{
         return message.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
     }
 
-    /**
-     * TODO voir comment passer directement un callback au ChatMessage à sa création, 
-     * La méthode du Hook est dégeu et AlienRPG aide clairement pas à interragir avec son module 😢 
+    /** 
+     * Ensemble des listeners qui sont réservés aux GM (utilisateurs de la modale)
      */
     static setMessageCreationListener(modale){
-        Hooks.on("renderChatMessage" , (message, html, data) => {
-            html.find('.rollable')?.on('click', (element) => {
-                const button  = element.currentTarget;
-                const dataset = button.dataset;
-                const token   = Tokens.getTokenFromId(dataset?.token).token;
-                token?.actor?.rollAbility(token?.actor, dataset);
-                ChatMessageService.deleteMessage(message, true);
-            });
-        });
-
         game.socket.on('module.CustomMods', (data) => {
             if(data.action === 'delete-roll-request'){
                 const message = ChatMessage.get(data.messageId);
@@ -69,7 +58,6 @@ export class ChatMessageService{
         });
 
         Hooks.on("createChatMessage", (message) => { 
-
             // TODO les messages de Panique sont des rolls ? Pas de flag permettant de les dinstinguer. Obligé de regarder le contenu pour les distinguer pour le moment. AlienRPGBaseDie vs Die Touver comment faire plus propre
             if(message.isRoll && message.rolls[0]?.terms[0]?.constructor?.name === "AlienRPGBaseDie"){
                 const tokenId = message.speaker?.token ?? HtmlService.stringToHtmlElement(message.content)?.dataset.actorId;
@@ -89,6 +77,21 @@ export class ChatMessageService{
                     const token = Tokens.getTokenFromActorId(actor.id);
                     modale.syncPanic(token);
                 }
+            });
+        });
+    }
+
+    /**
+     * Met en place les listeners qui sont communs aux joueurs et GM
+     */
+    static setCommonListeners(){
+        Hooks.on("renderChatMessage" , (message, html, data) => {
+            html.find('.rollable')?.on('click', (element) => {
+                const button  = element.currentTarget;
+                const dataset = button.dataset;
+                const token   = Tokens.getTokenFromId(dataset?.token).token;
+                token?.actor?.rollAbility(token?.actor, dataset);
+                ChatMessageService.deleteMessage(message, true);
             });
         });
     }
