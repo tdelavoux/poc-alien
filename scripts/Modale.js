@@ -45,7 +45,7 @@ export class Modale{
                 let dialogElement = html.closest('.dialog'); 
                 let header = dialogElement.find('.window-header .close');
                 let customButton = $('<a class="header-button control minimize">Minimize</a>');
-                customButton.on('click', () => self.rootNode.minimize());
+                customButton?.on('click', () => self.rootNode.minimize());
                 header.before(customButton);
 
                 self.applyFormListeners(html);
