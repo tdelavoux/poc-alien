@@ -1,3 +1,5 @@
+import { getModuleConfigration } from "../scripts/config.js";
+
 export class Tokens{
 
     constructor(token){
@@ -98,13 +100,12 @@ export class Tokens{
      * @param {Object} tokenList 
      * @returns 
      */
-    static getPlayersFromList(tokenList){
+    static async getPlayersFromList(tokenList){
+        const config = await getModuleConfigration();
+        const alignmentsAccepted = [CONST.TOKEN_DISPOSITIONS.FRIENDLY,  game.settings.get(config.moduleId, "hostile") ? CONST.TOKEN_DISPOSITIONS.HOSTILE : null].filter(Boolean);
         try{
             return tokenList.filter(token => {
-                return token.actor && 
-                       token.actor.type !== "creature" 
-                       && token.actor.type !== "vehicles"
-                       && token.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                return token.actor?.type === "character"  && alignmentsAccepted.includes(token.document.disposition);
             });
         }catch{
             console.error('Not a suitable list of tokens');

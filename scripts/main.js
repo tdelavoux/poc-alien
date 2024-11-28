@@ -1,7 +1,7 @@
 import { ChatMessageService } from "../services/ChatMessage.js";
 
 import { Modale } from "./Modale.js";
-import { getModuleConfigration } from './config.js';
+import { getModuleConfigration, registerModuleSettings } from './config.js';
 
 let config = {};
 
@@ -27,4 +27,9 @@ Hooks.once("ready", async () => {
     }
 
     ChatMessageService.setCommonListeners();
+});
+
+
+Hooks.once("init", async () => {
+    await registerModuleSettings();
 });

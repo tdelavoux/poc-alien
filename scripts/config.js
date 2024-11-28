@@ -24,3 +24,15 @@ async function getModuleInfos(){
   
     return await response.json();
 }
+
+export async function registerModuleSettings(){
+    const config = await getModuleConfigration();
+    game.settings.register(config.moduleId, "hostile", {
+        name: "Hostile Tokens",
+        hint: "Unable or disable hostile tokens",
+        scope: "world",
+        config: true, 
+        type: Boolean, 
+        default: false, 
+    });
+}

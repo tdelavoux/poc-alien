@@ -29,7 +29,7 @@ export class Modale{
         const alienConfig = await getAlienConfigration();
         // Obligé de tout loader pour un render 🥲
         const templatePath = `${config.templatePath}${this.template}`;
-        const tokens     = Tokens.getPlayersFromList(canvas.tokens.placeables);
+        const tokens     = await Tokens.getPlayersFromList(canvas.tokens.placeables);
         const skills     =  alienConfig.skills;
         const attributes =  alienConfig.attributes;
         const content = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
@@ -74,7 +74,7 @@ export class Modale{
         const config = await getModuleConfigration();
         const alienConfig = await getAlienConfigration();
         const templatePath = `${config.templatePath}${this.template}`;
-        const tokens     = Tokens.getPlayersFromList(canvas.tokens.placeables);
+        const tokens     = await Tokens.getPlayersFromList(canvas.tokens.placeables);
         const skills     =  alienConfig.skills;
         const attributes =  alienConfig.attributes;
         const content = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
