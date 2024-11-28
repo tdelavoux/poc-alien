@@ -8,6 +8,9 @@
   --red: #e76666;
 }
 
+.modal-header{
+  justify-content: space-between;
+}
 .socials-icons{
   margin-bottom:0.5em;
 }

@@ -16,6 +16,14 @@ Hooks.once("ready", async () => {
         const modale = new Modale(document.querySelector("#chat-controls .chat-control-icon"));
         ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
         ChatMessageService.setMessageCreationListener(modale);
+
+        Hooks.on('createToken', (token) => {
+            modale.update();
+        });
+        
+        Hooks.on('deleteToken', (token) => {
+            modale.update();
+        });
     }
 
     ChatMessageService.setCommonListeners();
