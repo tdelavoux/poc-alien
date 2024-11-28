@@ -21,7 +21,6 @@ Hooks.once("ready", async () => {
             modale.update();
         });
         
-        // Token deleted
         Hooks.on('deleteToken', (token) => {
             modale.update();
         });
