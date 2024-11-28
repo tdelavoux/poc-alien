@@ -2,7 +2,6 @@ import { getAlienConfigration } from '../services/Alien.js';
 import { ChatMessageService } from '../services/ChatMessage.js';
 import { getModuleConfigration } from './config.js';
 
- // TODO gérer les pushs
 export class Roller{
 
     static RollTypeEnum = {
@@ -41,9 +40,6 @@ export class Roller{
         await ChatMessageService.create(chatMessageData);
     }
 
-    /**
-     * TODO des effets positifs ou négatis ? Catch via un id ce qui est chelou.
-     */
     async determineDicesForRoll(){
         const alienConfig = await getAlienConfigration(); 
         switch(this.type){
@@ -73,7 +69,7 @@ export class Roller{
             this.token.getId(),
             "randomStringValue",
             1,
-            null // TODO invesiguer sur un potentiel 
+            null
         );
     }
 }

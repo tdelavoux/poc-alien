@@ -26,6 +26,11 @@ export class ChatMessageService{
         }
     }
 
+    /**
+     * Suprpesion du message en BDD
+     * @param {ChatMessage} message 
+     * @returns 
+     */
     static deleteMessageFromDb(message){
         if(!message || !this.isUserMessageOwner(message)){return}
         message?.delete();
@@ -41,6 +46,11 @@ export class ChatMessageService{
         });
     }
 
+    /**
+     * Vérifie les droits owner de l'utilisateur courrant sur un message
+     * @param {ChatMessange} message  Instance de chat message
+     * @returns 
+     */
     static isUserMessageOwner(message){
         if(!message || !message instanceof ChatMessage){false}
         return message.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
@@ -58,6 +68,7 @@ export class ChatMessageService{
         });
 
         Hooks.on("createChatMessage", (message) => { 
+
             // TODO les messages de Panique sont des rolls ? Pas de flag permettant de les dinstinguer. Obligé de regarder le contenu pour les distinguer pour le moment. AlienRPGBaseDie vs Die Touver comment faire plus propre
             if(message.isRoll && message.rolls[0]?.terms[0]?.constructor?.name === "AlienRPGBaseDie"){
                 const tokenId = message.speaker?.token ?? HtmlService.stringToHtmlElement(message.content)?.dataset.actorId;
