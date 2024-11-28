@@ -71,10 +71,8 @@ export class ChatMessageService{
             // TODO les messages de Panique sont des rolls ? Pas de flag permettant de les dinstinguer. Obligé de regarder le contenu pour les distinguer pour le moment. AlienRPGBaseDie vs Die Touver comment faire plus propre
             if(message.isRoll && message.rolls[0]?.terms[0]?.constructor?.name === "AlienRPGBaseDie"){
                 const content = HtmlService.stringToHtmlElement(message.content);
-                console.warn(content);
-                console.warn(message);
                 const token = Tokens.getTokenFromActorId(content?.dataset.actorId) ?? Tokens.getTokenFromId(message.speaker?.token);
-                const complementAlias = message.speaker.alias ? `(${message.speaker.alias})` : '';
+                const complementAlias = message.speaker.alias ? `- by ${message.speaker.alias}` : '';
                 // Temporisation pour éviter une double notification dans le chat
                 setTimeout(
                     () => {
