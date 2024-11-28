@@ -66,7 +66,7 @@ export class Roller{
             game.i18n.localize('ALIENRPG.Black'),
             this.token.getStressValue(),
             game.i18n.localize('ALIENRPG.Yellow'),
-            this.token.getId(),
+            this.token.getActor().id,
             "randomStringValue",
             1,
             null
