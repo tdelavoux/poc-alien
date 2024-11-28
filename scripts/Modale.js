@@ -5,7 +5,6 @@ import { Roller } from './Roller.js';
 import { RollService } from '../services/RollService.js';
 import { ChatMessageService } from '../services/ChatMessage.js';
 
-// TODO géréer si pas de tokens actifs ou pas de skills / attributs trouvés ? 
 export class Modale{
     
     constructor(trigger) {
@@ -119,7 +118,8 @@ export class Modale{
         const selectedSkill     = document.querySelector('.skill-item input:checked');
         const rollType = selectedAttribute ? Roller.RollTypeEnum.attribute : Roller.RollTypeEnum.skill;
         const rollKey  = selectedAttribute ? selectedAttribute?.value : selectedSkill?.value;
-        const rollForAbsent = document.querySelector('#rollForMissing:checked')?.checked;
+        const rollForAbsent  = document.querySelector('#rollForMissing:checked')?.checked;
+        const rollForPresent = document.querySelector('#forceForPresents:checked')?.checked;
 
         if(selectedTokens.length < 1 || !rollKey){
             ui.notifications.warn("You need to select at least a token and a skill or attribute");
@@ -132,7 +132,7 @@ export class Modale{
 
             const owningPlayers = token.getOwners(true);
 
-            rollForAbsent && owningPlayers.length === 0 ? 
+            (owningPlayers.length === 0 ? rollForAbsent : rollForPresent) ? 
                 roll.characterRoll() :
                 roll.createRollNotification(owningPlayers?.map((el) => el.id));
         });

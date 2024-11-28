@@ -14,7 +14,7 @@
   
     
     <h3 class="module-title">Sélectionnez un ou plusieurs tokens</h3>
-    <section id="tokenList" class="token-grid">
+    <section id="tokenList" class="grid-2c">
         {{#each tokens}}
             <label class="token-item flex" id="token-item-{{id}}">
                 <input type="checkbox" name="selected-token" value="{{id}}">
@@ -60,15 +60,17 @@
     </section>
 
     <h3 class="module-title">Paramètres complémentaires</h3>
-    <section>
+    <section class="flex grid-2c">
         <label class="param-item flex">
-            <!-- TODO mettre la checkbox en  -->
             <input id="rollForMissing" type="checkbox" checked>
             Lancer automatique pour les absents
         </label>
+        <label class="param-item flex">
+            <input id="forceForPresents" type="checkbox">
+            Lancer automatique pour les présents
+        </label>
     </section>
         
-    <!-- TODO use dialog buttons instead ? -->
     <div class="btn-line flex">
         <button id="cleanup-pending-requests" class="action-button">
             Clean pending requests
