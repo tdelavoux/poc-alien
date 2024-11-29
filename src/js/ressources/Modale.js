@@ -34,13 +34,13 @@ export class Modale{
         const attributes   = alienConfig.attributes;
         const content      = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
         const dialog       = new Dialog({
-            title  : `${config.moduleId} - ${config.moduleTitle}`,
+            title  : `${config.moduleId}`,
             content: content,
             buttons: {},
             render : (html) => {
                 // JQ 🤮
                 let dialogElement = html?.closest('.dialog');
-                if(!dialogElement.find('.header-button.minimize')){
+                if(!dialogElement.find('.header-button.minimize').length){
                     let header       = dialogElement?.find('.window-header .close');
                     let customButton = $('<a class="header-button control minimize">Minimize</a>');
                     customButton?.on('click', () => self.rootNode?.minimize());
@@ -146,8 +146,7 @@ export class Modale{
         const config           = getModuleConfigration();
         const templatePath     = `${config.templatePath}${this.templateRollLigne}`;
         const rollResults      = RollService.getDicesFromRoll(roll);
-        const view             = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
-              target.innerHTML = view;
+        target.innerHTML       = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
 
         await this.syncPanic(token);
     }

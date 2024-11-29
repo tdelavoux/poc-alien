@@ -29,12 +29,6 @@ export class Roller{
             whisper: users,
             type: CONST.CHAT_MESSAGE_STYLES.OTHER,
             content: content,
-            flags: {
-                "GmRollRequest" : {
-                    interactiveButton: true,
-                    rollType: this.key
-                },
-            }
         };
 
         await ChatMessageService.create(chatMessageData);

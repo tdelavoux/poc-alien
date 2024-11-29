@@ -19,7 +19,7 @@ export class ChatMessageService{
         if(this.isUserMessageOwner(message)){
             ChatMessageService.deleteMessageFromDb(message); 
         }else if(emit){
-            game.socket.emit('module.roll-request', {
+            game.socket.emit('module.alien-roll-request', {
                 action: 'delete-roll-request',
                 messageId: message.id
             });
@@ -60,7 +60,7 @@ export class ChatMessageService{
      * Ensemble des listeners qui sont réservés aux GM (utilisateurs de la modale)
      */
     static setMessageCreationListener(modale){
-        game.socket.on('module.roll-request', (data) => {
+        game.socket.on('module.alien-roll-request', (data) => {
             if(data.action === 'delete-roll-request'){
                 const message = ChatMessage.get(data.messageId);
                 ChatMessageService.deleteMessage(message);
