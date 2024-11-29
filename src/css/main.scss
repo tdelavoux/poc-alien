@@ -62,18 +62,7 @@ section:not(.modal-content){
 .token-item:has(input:checked), .token-item:hover{
   color:var(--light);
 }
-.token-item img {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
-  border-radius: 50%;
-}
-.token-item span {
-    font-weight: 600;
-}
-.token-item-content{
-    flex:1;
-}
+
 .token-item{
   padding: 8px;
   cursor: pointer;
@@ -83,7 +72,22 @@ section:not(.modal-content){
   transition: 0.5s;
   background-origin: border-box;
   background-clip: content-box, border-box;
+
+  img{
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+  }
+  span{
+    font-weight: 600;
+  }
 }
+
+.token-item-content{
+    flex:1;
+}
+
 .token-item:hover .container-stars, .token-item:has(input:checked) .container-stars{
   background-color: rgb(18 76 78 / 0.2);
   border: solid 1px var(--primary)

@@ -1,4 +1,4 @@
-import { getModuleConfigration } from "../scripts/config.js";
+import { getModuleConfigration } from "../config.js";
 
 export class Tokens{
 

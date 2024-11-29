@@ -1,7 +1,7 @@
 {
-  "id": "CustomMods",
-  "title": "Demande de lancer de dés",
-  "description": "Le module permet à un GM de demander à un ou plusieurs joueurs de réaliser un lancé de déé et d'en reçevoir le résultat final",
+  "id": "alien-roll-request",
+  "title": "alien-roll-request",
+  "description": "This module create a modal window for GM that allow to send or force roll requests to players. Includes Attributes or skills rolls. Characters Actors only.  - Foundry VTT pour Alien RPG.",
   "version": "1.0.0",
   "compatibility": {
     "minimum": "12",
@@ -22,7 +22,7 @@
   "esmodules": [
     "scripts/main.js"
   ],
-  "styles": ["styles/main.css"],
+  "styles": ["styles/main.min.css"],
   "languages": [
   ],
   "media": [

@@ -1,5 +1,5 @@
 import { HtmlService } from "./HtmlService.js";
-import { Tokens } from "./Tokens.js";
+import { Tokens } from "../ressources/Tokens.js";
 
 export class ChatMessageService{
 
@@ -19,7 +19,7 @@ export class ChatMessageService{
         if(this.isUserMessageOwner(message)){
             ChatMessageService.deleteMessageFromDb(message); 
         }else if(emit){
-            game.socket.emit('module.CustomMods', {
+            game.socket.emit('module.roll-request', {
                 action: 'delete-roll-request',
                 messageId: message.id
             });
@@ -60,7 +60,7 @@ export class ChatMessageService{
      * Ensemble des listeners qui sont réservés aux GM (utilisateurs de la modale)
      */
     static setMessageCreationListener(modale){
-        game.socket.on('module.CustomMods', (data) => {
+        game.socket.on('module.roll-request', (data) => {
             if(data.action === 'delete-roll-request'){
                 const message = ChatMessage.get(data.messageId);
                 ChatMessageService.deleteMessage(message);
@@ -72,12 +72,11 @@ export class ChatMessageService{
             if(message.isRoll && message.rolls[0]?.terms[0]?.constructor?.name === "AlienRPGBaseDie"){
                 const content = HtmlService.stringToHtmlElement(message.content);
                 const token = Tokens.getTokenFromActorId(content?.dataset.actorId) ?? Tokens.getTokenFromId(message.speaker?.token);
-                const complementAlias = message.speaker.alias ? `- by ${message.speaker.alias}` : '';
                 // Temporisation pour éviter une double notification dans le chat
                 setTimeout(
                     () => {
                         message.update({
-                            speaker: {alias: `${token.getName()} ${complementAlias}`}
+                            speaker: {alias: token.getName()}
                         });
                     },
                     100

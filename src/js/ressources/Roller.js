@@ -1,6 +1,6 @@
-import { getAlienConfigration } from '../services/Alien.js';
-import { ChatMessageService } from '../services/ChatMessage.js';
-import { getModuleConfigration } from './config.js';
+import { getAlienConfigration } from '../services/AlienService.js';
+import { ChatMessageService } from '../services/ChatMessageService.js';
+import { getModuleConfigration } from '../config.js';
 
 export class Roller{
 
