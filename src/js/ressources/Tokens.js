@@ -95,13 +95,12 @@ export class Tokens{
 
     /**
      * Renvoie la liste des tokens de joueurs. Retire les monstres et les PNJ Hostiles
-     * TODO gerer en settings les affichages
      * 
      * @param {Object} tokenList 
      * @returns 
      */
-    static async getPlayersFromList(tokenList){
-        const config = await getModuleConfigration();
+    static getPlayersFromList(tokenList){
+        const config = getModuleConfigration();
         const alignmentsAccepted = [CONST.TOKEN_DISPOSITIONS.FRIENDLY,  game.settings.get(config.moduleId, "hostile") ? CONST.TOKEN_DISPOSITIONS.HOSTILE : null].filter(Boolean);
         try{
             return tokenList.filter(token => {

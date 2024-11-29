@@ -9,15 +9,12 @@ export async function getModuleConfigration(){
 
     configuration = {
         moduleId: moduleId,
-        moduleTitle: moduleInfos.title,
         templatePath: tempPath
     };
-
     return configuration;
 }
 
-export async function registerModuleSettings(){
-    const config = await getModuleConfigration();
+export function registerModuleSettings(){
     game.settings.register(moduleId, "hostile", {
         name: "Hostile Tokens",
         hint: "Unable or disable hostile tokens",

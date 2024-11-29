@@ -9,7 +9,7 @@ let config = {};
 Hooks.once("ready", async () => {
 
     // Charge une première fois les données de configuration pour que les autres modules utilisent le cache du singleton
-    config = await getModuleConfigration();
+    config = getModuleConfigration();
 
     // Initialise la fenêtre modale et les listeners pour les GM
     if(game.user.isGM){
@@ -30,6 +30,6 @@ Hooks.once("ready", async () => {
 });
 
 
-Hooks.once("init", async () => {
-    await registerModuleSettings();
+Hooks.once("init", () => {
+    registerModuleSettings();
 });

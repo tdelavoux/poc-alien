@@ -1,9 +1,9 @@
-import { Tokens } from './Tokens.js';
+import { Tokens }                from './Tokens.js';
 import { getModuleConfigration } from '../config.js';
-import { getAlienConfigration } from '../services/AlienService.js';
-import { Roller } from './Roller.js';
-import { RollService } from '../services/RollService.js';
-import { ChatMessageService } from '../services/ChatMessageService.js';
+import { getAlienConfigration }  from '../services/AlienService.js';
+import { Roller }                from './Roller.js';
+import { RollService }           from '../services/RollService.js';
+import { ChatMessageService }    from '../services/ChatMessageService.js';
 
 export class Modale{
     
@@ -14,34 +14,34 @@ export class Modale{
             return;
         }
 
-        this.trigger  = trigger;
-        this.rootNode  = null;
-        this.template    = `modale.html`;
+        this.trigger           = trigger;
+        this.rootNode          = null;
+        this.template          = `modale.html`;
         this.templateRollLigne = `roll-line.html`;
-        this.templatePanic = `panic-line.html`;
+        this.templatePanic     = `panic-line.html`;
         this.trigger?.addEventListener('click', () => this.toggle());
     }
 
     // Crée la modale et son contenu
     async create(){
-        const self = this;
-        const config = await getModuleConfigration();
+        const self        = this;
+        const config      = getModuleConfigration();
         const alienConfig = await getAlienConfigration();
         // Obligé de tout loader pour un render 🥲
         const templatePath = `${config.templatePath}${this.template}`;
-        const tokens     = await Tokens.getPlayersFromList(canvas.tokens.placeables);
-        const skills     =  alienConfig.skills;
-        const attributes =  alienConfig.attributes;
-        const content = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
-        const dialog  = new Dialog({
-            title: `${config.moduleId} - ${config.moduleTitle}`,
+        const tokens       = Tokens.getPlayersFromList(canvas.tokens.placeables);
+        const skills       = alienConfig.skills;
+        const attributes   = alienConfig.attributes;
+        const content      = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
+        const dialog       = new Dialog({
+            title  : `${config.moduleId} - ${config.moduleTitle}`,
             content: content,
             buttons: {},
-            render: (html) => {
+            render : (html) => {
                 // JQ 🤮
-                let dialogElement = html?.closest('.dialog'); 
+                let dialogElement = html?.closest('.dialog');
                 if(!dialogElement.find('.header-button.minimize')){
-                    let header = dialogElement?.find('.window-header .close');
+                    let header       = dialogElement?.find('.window-header .close');
                     let customButton = $('<a class="header-button control minimize">Minimize</a>');
                     customButton?.on('click', () => self.rootNode?.minimize());
                     header.before(customButton);
@@ -71,20 +71,19 @@ export class Modale{
     async update(){
         if(!this.rootNode){return;}
         // Obligé de tout loader pour un render 🥲
-        const config = await getModuleConfigration();
-        const alienConfig = await getAlienConfigration();
-        const templatePath = `${config.templatePath}${this.template}`;
-        const tokens     = await Tokens.getPlayersFromList(canvas.tokens.placeables);
-        const skills     =  alienConfig.skills;
-        const attributes =  alienConfig.attributes;
-        const content = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
-        this.rootNode.data.content = content;
+        const config                     = getModuleConfigration();
+        const alienConfig                = await getAlienConfigration();
+        const templatePath               = `${config.templatePath}${this.template}`;
+        const tokens                     = Tokens.getPlayersFromList(canvas.tokens.placeables);
+        const skills                     = alienConfig.skills;
+        const attributes                 = alienConfig.attributes;
+        const content                    = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
+              this.rootNode.data.content = content;
         this.rootNode?.render(true);
     }
 
     // Ajoute l'interactivité dans le formulaire
     applyFormListeners(html){
-        const self = this;
         const button = document.getElementById('rollDice');
         button.addEventListener('click', () => {
             this.formAction();
@@ -116,10 +115,10 @@ export class Modale{
         const selectedTokens    = Array.from(document.querySelectorAll('#tokenList input:checked')).map(input => input.value);
         const selectedAttribute = document.querySelector('.attribute-item input:checked');
         const selectedSkill     = document.querySelector('.skill-item input:checked');
-        const rollType = selectedAttribute ? Roller.RollTypeEnum.attribute : Roller.RollTypeEnum.skill;
-        const rollKey  = selectedAttribute ? selectedAttribute?.value : selectedSkill?.value;
-        const rollForAbsent  = document.querySelector('#rollForMissing:checked')?.checked;
-        const rollForPresent = document.querySelector('#forceForPresents:checked')?.checked;
+        const rollType          = selectedAttribute ? Roller.RollTypeEnum.attribute : Roller.RollTypeEnum.skill;
+        const rollKey           = selectedAttribute ? selectedAttribute?.value : selectedSkill?.value;
+        const rollForAbsent     = document.querySelector('#rollForMissing:checked')?.checked;
+        const rollForPresent    = document.querySelector('#forceForPresents:checked')?.checked;
 
         if(selectedTokens.length < 1 || !rollKey){
             ui.notifications.warn("You need to select at least a token and a skill or attribute");
@@ -128,12 +127,12 @@ export class Modale{
         selectedTokens.forEach((tokenId) => {
             const token = Tokens.getTokenFromId(tokenId);
             if(!token){return}
-            const roll  = new Roller(token, rollType, rollKey);
+            const roll = new Roller(token, rollType, rollKey);
 
             const owningPlayers = token.getOwners(true);
 
             (owningPlayers.length === 0 ? rollForAbsent : rollForPresent) ? 
-                roll.characterRoll() :
+                roll.characterRoll(): 
                 roll.createRollNotification(owningPlayers?.map((el) => el.id));
         });
     }
@@ -144,11 +143,11 @@ export class Modale{
         const target = document.querySelector(`#token-item-${token.getId()} .last-roll-result`);
         if(!target){return;}
 
-        const config = await getModuleConfigration();
-        const templatePath = `${config.templatePath}${this.templateRollLigne}`;
-        const rollResults = RollService.getDicesFromRoll(roll);
-        const view = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
-        target.innerHTML = view;
+        const config           = getModuleConfigration();
+        const templatePath     = `${config.templatePath}${this.templateRollLigne}`;
+        const rollResults      = RollService.getDicesFromRoll(roll);
+        const view             = await renderTemplate(templatePath, {token: token.token, roll:rollResults });
+              target.innerHTML = view;
 
         await this.syncPanic(token);
     }
@@ -157,20 +156,20 @@ export class Modale{
     // Accepte les Tokens du module, les Token d'Alien & les token ID
     async syncPanic(... tokens){
         
-        const config = await getModuleConfigration();
+        const config = getModuleConfigration();
         [...tokens].forEach(async (token) => {
-            token = token instanceof Tokens ? token : Tokens.getTokenFromId(token?.id ?? token);
+                  token  = token instanceof Tokens ? token : Tokens.getTokenFromId(token?.id ?? token);
             const target = document.querySelector(`#token-item-${token.getId()} .panic-state`);
             if(!target){return;}
 
             const panic = {
-                isPanic: token.getPanicValue(),
+                isPanic     : token.getPanicValue(),
                 panicMessage: token.getLastPanicMessage()
             };
 
-            const templatePath = `${config.templatePath}${this.templatePanic}`;
-            const view = await renderTemplate(templatePath, {token: token.token, panic:panic });
-            target.innerHTML = view;
+            const templatePath     = `${config.templatePath}${this.templatePanic}`;
+            const view             = await renderTemplate(templatePath, {token: token.token, panic:panic });
+                  target.innerHTML = view;
         });
     }
 

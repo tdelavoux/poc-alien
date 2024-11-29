@@ -21,7 +21,7 @@ export class Roller{
 
     async createRollNotification(users = []){
         await this.determineDicesForRoll();
-        const config = await getModuleConfigration();
+        const config = getModuleConfigration();
         const templatePath = `${config.templatePath}${this.template}`;
         const content = await renderTemplate(templatePath, {tokenId: this.token.getId(), tokenName: this.token.getName(), label:this.rollName, number: this.diceNumber});
 
