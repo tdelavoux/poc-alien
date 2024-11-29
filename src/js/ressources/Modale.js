@@ -84,27 +84,27 @@ export class Modale{
 
     // Ajoute l'interactivité dans le formulaire
     applyFormListeners(html){
-        const button = document.getElementById('rollDice');
+        const button = document.getElementById('arr-roll-button');
         button.addEventListener('click', () => {
             this.formAction();
         });
 
         // Ajouter des écouteurs d'événements pour la désélection
-        html.find('.attribute-item input').on('change', function() {
-            this.checked && html.find('.skill-item input').prop('checked', false);
+        html.find('.arr-attribute-input').on('change', function() {
+            this.checked && html.find('.arr-skill-input').prop('checked', false);
         });
 
-        html.find('.skill-item input').on('change', function() {
-            this.checked && html.find('.attribute-item input').prop('checked', false);
+        html.find('.arr-skill-input').on('change', function() {
+            this.checked && html.find('.arr-attribute-input').prop('checked', false);
         });
 
-        const cleanupButton = document.getElementById('cleanup-pending-requests');
+        const cleanupButton = document.getElementById('arr-cleanup-pending-requests');
         cleanupButton.addEventListener('click', () => {
             ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
             ui.notifications.warn("Pending Notifications has been cleared");
         });
 
-        const updateButton = document.getElementById('update-modal-content');
+        const updateButton = document.getElementById('arr-update-modal-content');
         updateButton.addEventListener('click', () => {
             this.update();
         });
@@ -112,13 +112,13 @@ export class Modale{
 
     // Lancement du traitement du formulaire
     formAction(){
-        const selectedTokens    = Array.from(document.querySelectorAll('#tokenList input:checked')).map(input => input.value);
-        const selectedAttribute = document.querySelector('.attribute-item input:checked');
-        const selectedSkill     = document.querySelector('.skill-item input:checked');
+        const selectedTokens    = Array.from(document.querySelectorAll('.arr-token-input:checked')).map(input => input.value);
+        const selectedAttribute = document.querySelector('.arr-attribute-input:checked');
+        const selectedSkill     = document.querySelector('.arr-skill-input:checked');
         const rollType          = selectedAttribute ? Roller.RollTypeEnum.attribute : Roller.RollTypeEnum.skill;
         const rollKey           = selectedAttribute ? selectedAttribute?.value : selectedSkill?.value;
-        const rollForAbsent     = document.querySelector('#rollForMissing:checked')?.checked;
-        const rollForPresent    = document.querySelector('#forceForPresents:checked')?.checked;
+        const rollForAbsent     = document.querySelector('#arr-roll-for-missing:checked')?.checked;
+        const rollForPresent    = document.querySelector('#arr-force-for-present:checked')?.checked;
 
         if(selectedTokens.length < 1 || !rollKey){
             ui.notifications.warn("You need to select at least a token and a skill or attribute");
@@ -140,7 +140,7 @@ export class Modale{
     // Insère une ligne de roll dans la table des résultats 
     async logRollResult(token, roll){
 
-        const target = document.querySelector(`#token-item-${token.getId()} .last-roll-result`);
+        const target = document.querySelector(`#arr-token-item-${token.getId()} .arr-last-roll-result`);
         if(!target){return;}
 
         const config           = getModuleConfigration();
@@ -159,7 +159,7 @@ export class Modale{
         const config = getModuleConfigration();
         [...tokens].forEach(async (token) => {
                   token  = token instanceof Tokens ? token : Tokens.getTokenFromId(token?.id ?? token);
-            const target = document.querySelector(`#token-item-${token.getId()} .panic-state`);
+            const target = document.querySelector(`#arr-token-item-${token.getId()} .arr-panic-state`);
             if(!target){return;}
 
             const panic = {

@@ -1,5 +1,4 @@
 import { ChatMessageService } from "./services/ChatMessageService.js";
-
 import { Modale } from "./ressources/Modale.js";
 import { getModuleConfigration, registerModuleSettings } from './config.js';
 

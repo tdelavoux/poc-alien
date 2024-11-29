@@ -1,6 +1,8 @@
 import { defineConfig } from 'vite';
 import { resolve } from 'path';
-import sass from 'sass';
+import tailwindcss from 'tailwindcss';
+import autoprefixer from 'autoprefixer';
+
 
 export default defineConfig({
     build: {
@@ -16,10 +18,11 @@ export default defineConfig({
         }
     },
     css: {
-        preprocessorOptions: {
-            scss: {
-                implementation: sass
-            }
+        postcss: {
+            plugins: [
+                tailwindcss,
+                autoprefixer
+            ]
         }
     },
     plugins: [
@@ -29,7 +32,7 @@ export default defineConfig({
             enforce: 'post',
             generateBundle() {
                 const { execSync } = require('child_process');
-                execSync('sass src/css/main.scss styles/main.min.css --style=compressed');
+                execSync('npx tailwindcss -i ./src/css/main.scss -o ./styles/main.min.css --minify');
             }
         }
     ]

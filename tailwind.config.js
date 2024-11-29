@@ -1,11 +1,14 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./templates/*.html'],
+export default {
+  content: [
+    './templates/*.html',
+    "./src/**/*.{js,ts,jsx,tsx}"
+  ],
   theme: {
     colors: {
       transparent: 'transparent',
       'white': '#ffffff',
-      'base': '#041215',
+      'midnight': '#041215',
       'primary': '#124c4e',
       'text': '#55b0b3',
       'light': '#b6e7e9',
@@ -21,12 +24,27 @@ module.exports = {
     extend: {
       keyframes: {
         animStar: {
-          '0%, 100%': { transform: 'transtateY(-150px)' },
-        }
+          '0%': { transform: 'translateY(0)' },
+          '100%': { transform: 'translateY(-135rem)' },
+        },
+        animStarRotate: {
+          '0%': { transform: 'translateY(0) translateX(0)' },
+          '100%': { transform: 'translateY(30rem) translateX(-100rem)' },
+        },
       },
       animation: {
-        'anim-star': 'animStar 3s linear infinite',
-      }
+        animStarRotate: 'animStarRotate 50s linear infinite',
+        animStar: 'animStar 30s linear infinite',
+      },
+      backdropBlur: {
+        '1rem': '1rem',
+      },
+      backgroundSize: {
+        '300%': '300%',
+      },
+      transitionDuration: {
+        '0.5s': '0.5s',
+      },
     }
   },
   plugins: [],

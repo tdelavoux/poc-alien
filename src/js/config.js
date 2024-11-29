@@ -1,7 +1,7 @@
 let configuration = null;
 const moduleId = 'alien-roll-request'
 
-export async function getModuleConfigration(){
+export function getModuleConfigration(){
 
     // retrive from cache data
     if(configuration){ return configuration;}
