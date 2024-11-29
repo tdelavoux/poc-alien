@@ -20,7 +20,7 @@
   },
   "socket": true,
   "esmodules": [
-    "scripts/main.js"
+    "src/js/main.js"
   ],
   "styles": ["styles/main.min.css"],
   "languages": [

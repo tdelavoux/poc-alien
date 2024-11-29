@@ -1,15 +1,14 @@
 let configuration = null;
+const moduleId = 'alien-roll-request'
 
 export async function getModuleConfigration(){
 
     // retrive from cache data
     if(configuration){ return configuration;}
-
-    const moduleInfos = await getModuleInfos();
-    const tempPath =  `/modules/${moduleInfos.id}/templates/`;
+    const tempPath =  `/modules/${moduleId}/templates/`;
 
     configuration = {
-        moduleId: moduleInfos.id,
+        moduleId: moduleId,
         moduleTitle: moduleInfos.title,
         templatePath: tempPath
     };
@@ -17,17 +16,9 @@ export async function getModuleConfigration(){
     return configuration;
 }
 
-async function getModuleInfos(){
-    const moduleJsonPath = new URL('../module.json', import.meta.url).href; // Adjust path if necessary
-    const response = await fetch(moduleJsonPath);
-    if (!response.ok) throw new Error(`Failed to load module.json: ${response.statusText}`);
-  
-    return await response.json();
-}
-
 export async function registerModuleSettings(){
     const config = await getModuleConfigration();
-    game.settings.register(config.moduleId, "hostile", {
+    game.settings.register(moduleId, "hostile", {
         name: "Hostile Tokens",
         hint: "Unable or disable hostile tokens",
         scope: "world",

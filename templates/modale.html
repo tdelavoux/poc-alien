@@ -1,32 +1,29 @@
-<div class="modal-content">
+<div class="arr-modal-content p-3">
 
-    <div class="modal-header flex">
-        <div class="socials-icons flex">
-            <a href="http://google.fr"><i class="fa-brands fa-paypal"></i></a>
-            <a href="http://google.fr"><i class="fa-brands fa-github"></i></a>
-            <a href="http://google.fr"><i class="fa-solid fa-hand-holding-dollar"></i></a>
-            <a href="http://google.fr"><i class="fa-solid fa-mug-hot"></i></a>
+    <div class="flex items-center justify-between">
+        <div class="flex mb-1">
+            <a href="http://google.fr"><i class="fa-brands fa-github mr-1"></i></a>
         </div>
-        <a id="update-modal-content">
-            <i class="fa-solid fa-arrows-rotate"></i> refresh
+        <a id="update-modal-content bg-base text-text">
+            <i class="fa-solid fa-arrows-rotate mr-1"></i> refresh
         </a>
     </div>
   
     
-    <h3 class="module-title">Sélectionnez un ou plusieurs tokens</h3>
-    <section id="tokenList" class="grid-2c">
+    <h3 class="border-b-1 border-light text-light">Sélectionnez un ou plusieurs tokens</h3>
+    <section id="tokenList" class="grid-rows-2 gap-5 pb-2">
         {{#each tokens}}
-            <label class="token-item flex" id="token-item-{{id}}">
+            <label class="token-item p-3 pointer flex justify-center items-center" id="token-item-{{id}}">
                 <input type="checkbox" name="selected-token" value="{{id}}">
-                <div class="token-item-content flex">
-                    <img src="{{document.texture.src}}" alt="{{name}}">
-                    <span class="flex-1 elipsis">{{name}}</span>
-                    <span class="roll-result flex">
+                <div class="flex flex-1 items-center">
+                    <img src="{{document.texture.src}}" alt="{{name}}" class="w-10 h-10 mr-2 rounded-full">
+                    <span class="flex-1 truncate font-semibold">{{name}}</span>
+                    <span class="roll-result flex items-center font-semibold">
                         <span class="last-roll-result"></span>
                         <span class="panic-state"></span>
                     </span>
                 </div>
-                <div class="container-stars">
+                <div class="container-stars fixed z-[-1] w-full h-full overflow-hidden duration-500 backdrop-blur-md rounded-sm">
                     <div class="stars"></div>
                 </div>
             </label>
@@ -35,10 +32,10 @@
         {{/each}}
     </section>
 
-    <h3 class="module-title">Sélectionner un attributs</h3>
-    <section id="attributesList" class="grid-4c">
+    <h3 class="border-b-1 border-light text-light">Sélectionner un attributs</h3>
+    <section id="attributesList" class="grid-rows-4 gap-5 pb-2">
         {{#each attributes}}
-            <label class="attribute-item flex">
+            <label class="attribute-item ">
                 <input type="radio" name="selectedAttribute" value="{{@key}}">
                 <span>{{label}}</span>
             </label>
@@ -47,10 +44,10 @@
         {{/each}}
     </section>
 
-    <h3 class="module-title">Sélectionner un Skill</h3>
-    <section id="skillsList" class="grid-4c">
+    <h3 class="border-b-1 border-light text-light">Sélectionner un Skill</h3>
+    <section id="skillsList" class="grid-rows-4 gap-5 pb-2">
         {{#each skills}}
-            <label  class="skill-item flex">
+            <label  class="skill-item ">
                 <input type="radio" name="selectedSkill" value="{{@key}}">
                 <span>{{label}}</span>
             </label>
@@ -59,23 +56,23 @@
         {{/each}}
     </section>
 
-    <h3 class="module-title">Paramètres complémentaires</h3>
-    <section class="flex grid-2c">
-        <label class="param-item flex">
+    <h3 class="border-b-1 border-light text-light">Paramètres complémentaires</h3>
+    <section class="flex items-center grid-rows-2 gap-5 pb-2">
+        <label class="param-item w-fit flex items-center">
             <input id="rollForMissing" type="checkbox" checked>
             Lancer automatique pour les absents
         </label>
-        <label class="param-item flex">
+        <label class="param-item w-fit flex items-center">
             <input id="forceForPresents" type="checkbox">
             Lancer automatique pour les présents
         </label>
     </section>
         
-    <div class="btn-line flex">
-        <button id="cleanup-pending-requests" class="action-button">
+    <div class="btn-line flex items-center justify-center">
+        <button id="cleanup-pending-requests" class="font-normal w-fit text-sm ease-in-out duration-200 mx-1 my-0 border-1 text-red hover:text-base border-red bg-base hover:bg-red">
             Clean pending requests
         </button>
-        <button id="rollDice" class="action-button">
+        <button id="rollDice" class="font-normal w-fit text-sm ease-in-out duration-200 mx-1 my-0 border-1 text-text hover:text-primary  border-text bg-primary hover:bg-text">
             <strong>Send Rolls Request !</strong>
         </button>
     </div>
