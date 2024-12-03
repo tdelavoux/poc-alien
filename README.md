@@ -32,7 +32,7 @@ You can configure the module settings by navigating to the module settings menu 
 
 ## Support
 
-For support and updates, visit the [module's GitHub repository](https://github.com/your-repo/alien-roll-request).
+For support and updates, visit the [module's GitHub repository](https://github.com/Frenchy-s-module/alien-roll-request).
 
 ## Development 
 
@@ -42,7 +42,7 @@ You might contribute to the module development in many ways
 
 #### Bug Report
 
-If you face any bugs using this module, please open an issue on Github. Select the Bug template and fill all infos required to help us understanding the troubbles. We will handle it as fast as possible.
+If you face any bugs using this module, please [open an issue on Github](https://github.com/Frenchy-s-module/alien-roll-request/issues). Select the Bug template and fill all infos required to help us understanding the troubbles. We will handle it as fast as possible.
 
 #### Open a development request
 
@@ -51,7 +51,7 @@ Feel free to create an issue with the Feature template and provide all infos req
 #### Open a pull request
 
 We are open to developer's ideas and help. Feel free to open a Github Pull Request on this project with you'r code. If you pass the validity check your feature will be included in the official repo.
-To contribute directly please be aware of the contributing advices and local setup before starting your journey.
+To contribute directly please be aware of the [contributing advices and local setup](https://github.com/Frenchy-s-module/alien-roll-request/blob/master/CONTRIBUTING.md) before starting your journey.
 
 ### Changelog
 

@@ -1,6 +1,6 @@
 {
   "id": "alien-roll-request",
-  "title": "alien-roll-request",
+  "title": "Alien Roll Request",
   "description": "This module create a modal window for GM that allow to send or force roll requests to players. Includes Attributes or skills rolls. Characters Actors only.  - Foundry VTT pour Alien RPG.",
   "version": "1.0.0",
   "compatibility": {
@@ -33,7 +33,7 @@
       "lang": "en",
       "name": "English",
       "path": "lang/en.json"
-    }
+    },
     {
       "lang": "de",
       "name": "Deutsch",
@@ -78,7 +78,7 @@
   ],
   "authors": [
     {
-      "name": "TeBow",
+      "name": "Thibault DELAVOUX",
       "flags": {}
     }
   ],
