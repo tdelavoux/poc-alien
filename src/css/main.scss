@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* -------------------------------------------> Overwrite du layout de Foudry / alien
+*/
+.window-content:has(.arr-modal-content){padding:0;}
+#chat-controls .chat-control-icon{cursor: pointer;}
+
+/* -------------------------------------------> Custom Content
+  Use TW in HTML files as mutch as possible to avoir troubles
+*/
+.arr-token-item:not(:hover):not(:has(input:checked)) .arr-stars-container{display:none;}

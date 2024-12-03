@@ -1,3 +1,6 @@
+/**
+ * Interaction et récupération d'éléments du systeme Alien RPG
+ */
 const path = '/systems/alienrpg/template.json'
 
 let playableAction = null;

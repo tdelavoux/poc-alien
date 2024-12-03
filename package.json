@@ -1,0 +1,24 @@
+{
+  "name": "roll-request",
+  "version": "1.0.0",
+  "description": "Foundry VTT - AlienRPG Module made to propose rolls to players from MJ or force automatic one for them",
+  "main": "scrtipts/main.js",
+  "devDependencies": {
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.15",
+    "vite": "^6.0.1"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "vite build",
+    "watch": "vite build --watch"
+  },
+  "keywords": [
+    "Foundry;",
+    "AlienRPG",
+    "DiceRoller"
+  ],
+  "author": "Thibault DELAVOUX",
+  "license": "ISC"
+}

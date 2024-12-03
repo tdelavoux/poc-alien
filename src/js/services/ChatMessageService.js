@@ -1,5 +1,5 @@
 import { HtmlService } from "./HtmlService.js";
-import { Tokens } from "./Tokens.js";
+import { Tokens } from "../ressources/Tokens.js";
 
 export class ChatMessageService{
 
@@ -19,13 +19,18 @@ export class ChatMessageService{
         if(this.isUserMessageOwner(message)){
             ChatMessageService.deleteMessageFromDb(message); 
         }else if(emit){
-            game.socket.emit('module.CustomMods', {
+            game.socket.emit('module.alien-roll-request', {
                 action: 'delete-roll-request',
                 messageId: message.id
             });
         }
     }
 
+    /**
+     * Suprpesion du message en BDD
+     * @param {ChatMessage} message 
+     * @returns 
+     */
     static deleteMessageFromDb(message){
         if(!message || !this.isUserMessageOwner(message)){return}
         message?.delete();
@@ -41,6 +46,11 @@ export class ChatMessageService{
         });
     }
 
+    /**
+     * Vérifie les droits owner de l'utilisateur courrant sur un message
+     * @param {ChatMessange} message  Instance de chat message
+     * @returns 
+     */
     static isUserMessageOwner(message){
         if(!message || !message instanceof ChatMessage){false}
         return message.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.OWNER);
@@ -50,7 +60,7 @@ export class ChatMessageService{
      * Ensemble des listeners qui sont réservés aux GM (utilisateurs de la modale)
      */
     static setMessageCreationListener(modale){
-        game.socket.on('module.CustomMods', (data) => {
+        game.socket.on('module.alien-roll-request', (data) => {
             if(data.action === 'delete-roll-request'){
                 const message = ChatMessage.get(data.messageId);
                 ChatMessageService.deleteMessage(message);
@@ -60,8 +70,18 @@ export class ChatMessageService{
         Hooks.on("createChatMessage", (message) => { 
             // TODO les messages de Panique sont des rolls ? Pas de flag permettant de les dinstinguer. Obligé de regarder le contenu pour les distinguer pour le moment. AlienRPGBaseDie vs Die Touver comment faire plus propre
             if(message.isRoll && message.rolls[0]?.terms[0]?.constructor?.name === "AlienRPGBaseDie"){
-                const tokenId = message.speaker?.token ?? HtmlService.stringToHtmlElement(message.content)?.dataset.actorId;
-                const token =  Tokens.getTokenFromId(tokenId);
+                const content = HtmlService.stringToHtmlElement(message.content);
+                const token = Tokens.getTokenFromActorId(content?.dataset.actorId) ?? Tokens.getTokenFromId(message.speaker?.token);
+                // Temporisation pour éviter une double notification dans le chat
+                setTimeout(
+                    () => {
+                        message.update({
+                            speaker: {alias: token.getName()}
+                        });
+                    },
+                    100
+                );
+                
                 const roll = message.rolls[0];
                 if (roll && token) {
                     modale.logRollResult(token, roll);

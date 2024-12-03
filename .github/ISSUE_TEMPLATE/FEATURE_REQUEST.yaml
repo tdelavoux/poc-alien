@@ -1,0 +1,31 @@
+name: Feature Request
+description: Suggest a new feature or enhancement.
+title: "[Feature Request]: "
+labels: ["enhancement", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the details below to help us understand your feature request.
+  - type: textarea
+    id: feature_description
+    attributes:
+      label: "Feature Description"
+      description: "Describe the feature in detail."
+  - type: textarea
+    id: existing_feature
+    attributes:
+      label: "Existing Feature"
+      description: "Does this feature already exist in Foundry or another module? If yes, please provide details."
+    optional: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots"
+      description: "Provide any screenshots if available (optional)."
+    optional: true
+  - type: textarea
+    id: feature_gains
+    attributes:
+      label: "Gains"
+      description: "Describe the benefits of this feature (e.g., UX, UI, time savings, etc.)."

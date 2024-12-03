@@ -1,8 +1,7 @@
-import { getAlienConfigration } from '../services/Alien.js';
-import { ChatMessageService } from '../services/ChatMessage.js';
-import { getModuleConfigration } from './config.js';
+import { getAlienConfigration } from '../services/AlienService.js';
+import { ChatMessageService } from '../services/ChatMessageService.js';
+import { getModuleConfigration } from '../config.js';
 
- // TODO gérer les pushs
 export class Roller{
 
     static RollTypeEnum = {
@@ -22,7 +21,7 @@ export class Roller{
 
     async createRollNotification(users = []){
         await this.determineDicesForRoll();
-        const config = await getModuleConfigration();
+        const config = getModuleConfigration();
         const templatePath = `${config.templatePath}${this.template}`;
         const content = await renderTemplate(templatePath, {tokenId: this.token.getId(), tokenName: this.token.getName(), label:this.rollName, number: this.diceNumber});
 
@@ -30,20 +29,11 @@ export class Roller{
             whisper: users,
             type: CONST.CHAT_MESSAGE_STYLES.OTHER,
             content: content,
-            flags: {
-                "GmRollRequest" : {
-                    interactiveButton: true,
-                    rollType: this.key
-                },
-            }
         };
 
         await ChatMessageService.create(chatMessageData);
     }
 
-    /**
-     * TODO des effets positifs ou négatis ? Catch via un id ce qui est chelou.
-     */
     async determineDicesForRoll(){
         const alienConfig = await getAlienConfigration(); 
         switch(this.type){
@@ -70,10 +60,10 @@ export class Roller{
             game.i18n.localize('ALIENRPG.Black'),
             this.token.getStressValue(),
             game.i18n.localize('ALIENRPG.Yellow'),
-            this.token.getId(),
+            this.token.getActor().id,
             "randomStringValue",
             1,
-            null // TODO invesiguer sur un potentiel 
+            null
         );
     }
 }

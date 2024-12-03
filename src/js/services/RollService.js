@@ -2,10 +2,9 @@ export class RollService{
 
     static getDicesFromRoll(roll){
 
-        // TODO voir si l'opérateur est toujours un +. 
-        // TODO gérer les additions avec les résultats précédents dans le cas d'un push
+        // TCerains rolls ont un un opérateurs dans leurs termes. A voir si il y a des cas autre que '+' pour les gérer
         let successDices = 0;
-        let stressDices = 0;
+        let stressDices  = 0;
 
         roll?.terms.forEach((term, i) => {
             if (Array.isArray(term?.results)) {

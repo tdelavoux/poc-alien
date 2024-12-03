@@ -1,0 +1,49 @@
+name: Bug Report
+description: File a bug report.
+title: "[Bug]: "
+labels: ["bug", "triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please fill out the details below to help us understand the issue.
+  - type: textarea
+    id: bug_description
+    attributes:
+      label: "Bug Description"
+      description: "Describe the bug in detail."
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "Describe what you expected to happen."
+  - type: textarea
+    id: steps_to_reproduce
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Provide the steps to reproduce the bug."
+  - type: textarea
+    id: console_logs
+    attributes:
+      label: "Console Logs"
+      description: "Provide any console logs in web console if available (optional)."
+    optional: true
+  - type: textarea
+    id: screenshots
+    attributes:
+      label: "Screenshots"
+      description: "Provide any screenshots if available (optional)."
+    optional: true
+  - type: dropdown
+    id: browser_used
+    attributes:
+      label: "Browser Used"
+      description: "Select the browser you were using when the bug occurred."
+      options:
+        - "All"
+        - "Chrome"
+        - "Firefox"
+        - "Opera"
+        - "Opera GX"
+        - "Edge"
+        - "Other"

@@ -1,3 +1,5 @@
+import { getModuleConfigration } from "../config.js";
+
 export class Tokens{
 
     constructor(token){
@@ -93,18 +95,16 @@ export class Tokens{
 
     /**
      * Renvoie la liste des tokens de joueurs. Retire les monstres et les PNJ Hostiles
-     * TODO gerer en settings les affichages
      * 
      * @param {Object} tokenList 
      * @returns 
      */
     static getPlayersFromList(tokenList){
+        const config = getModuleConfigration();
+        const alignmentsAccepted = [CONST.TOKEN_DISPOSITIONS.FRIENDLY,  game.settings.get(config.moduleId, "hostile") ? CONST.TOKEN_DISPOSITIONS.HOSTILE : null].filter(Boolean);
         try{
             return tokenList.filter(token => {
-                return token.actor && 
-                       token.actor.type !== "creature" 
-                       && token.actor.type !== "vehicles"
-                       && token.document.disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                return token.actor?.type === "character"  && alignmentsAccepted.includes(token.document.disposition);
             });
         }catch{
             console.error('Not a suitable list of tokens');

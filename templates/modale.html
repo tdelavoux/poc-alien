@@ -1,33 +1,32 @@
-<div class="modal-content">
+<div class="arr-modal-content p-3 bg-midnight text-text">
 
-    <div class="modal-header flex">
-        <div class="socials-icons flex">
-            <a href="http://google.fr"><i class="fa-brands fa-paypal"></i></a>
-            <a href="http://google.fr"><i class="fa-brands fa-github"></i></a>
-            <a href="http://google.fr"><i class="fa-solid fa-hand-holding-dollar"></i></a>
-            <a href="http://google.fr"><i class="fa-solid fa-mug-hot"></i></a>
+    <div class="flex items-center justify-between">
+        <div class="flex mb-1">
+            <a href="http://google.fr"><i class="fa-brands fa-github mr-1"></i></a>
         </div>
-        <a id="update-modal-content">
-            <i class="fa-solid fa-arrows-rotate"></i> refresh
+        <a id="arr-update-modal-content">
+            <i class="fa-solid fa-arrows-rotate mr-1"></i> refresh
         </a>
     </div>
   
-    
-    <h3 class="module-title">Sélectionnez un ou plusieurs tokens</h3>
-    <section id="tokenList" class="token-grid">
+    <h3 class="border-b-1 border-light text-light">Sélectionnez un ou plusieurs tokens</h3>
+    <section id="arr-token-list" class="grid grid-cols-2 gap-3 py-2">
         {{#each tokens}}
-            <label class="token-item flex" id="token-item-{{id}}">
-                <input type="checkbox" name="selected-token" value="{{id}}">
-                <div class="token-item-content flex">
-                    <img src="{{document.texture.src}}" alt="{{name}}">
-                    <span class="flex-1 elipsis">{{name}}</span>
-                    <span class="roll-result flex">
-                        <span class="last-roll-result"></span>
-                        <span class="panic-state"></span>
+            <label class="arr-token-item p-2 cursor-pointer flex justify-center items-center bg-[length:300%_300%] backdrop-blur-md transition-[0.5s] bg-origin-border bg-clip-content" id="arr-token-item-{{id}}">
+                <input type="checkbox" class="arr-token-input hidden" value="{{id}}">
+                <div class="flex flex-1 items-center">
+                    <img src="{{document.texture.src}}" alt="{{name}}" class="w-10 h-10 mr-2 rounded-full">
+                    <span class="flex-1 truncate font-semibold">{{name}}</span>
+                    <span class="flex items-center font-semibold">
+                        <span class="arr-last-roll-result"></span>
+                        <span class="arr-panic-state"></span>
                     </span>
                 </div>
-                <div class="container-stars">
-                    <div class="stars"></div>
+                <div class="arr-stars-container border rounded-full border-primary bg-primary/20 fixed z-[-1] w-full h-full overflow-hidden duration-500">
+                    <div class="relative bg-transparent w-[200rem] h-[200rem] 
+                                after:content-[''] after:absolute after:top-[-10rem] after:left-[-100rem] after:w-full after:h-full after:bg-[#fff_1px,transparent_1%)] after:bg-[length:50px_50px] after:opacity-50 after:animate-animStarRotate
+                                before:content-[''] before:absolute before:top-0 before:left-[-50%] before:w-[170%] before:h-[500%] before:bg-[#fff_1px,transparent_1%)] before:bg-[length:50px_50px] before:opacity-50 before:animate-animStar">
+                    </div>
                 </div>
             </label>
         {{else}}
@@ -35,11 +34,11 @@
         {{/each}}
     </section>
 
-    <h3 class="module-title">Sélectionner un attributs</h3>
-    <section id="attributesList" class="grid-4c">
+    <h3 class="border-b-1 border-light text-light">Sélectionner un attributs</h3>
+    <section class="grid  grid-cols-4 gap-3 py-2">
         {{#each attributes}}
-            <label class="attribute-item flex">
-                <input type="radio" name="selectedAttribute" value="{{@key}}">
+            <label class="flex items-center cursor-pointer border border-primary p-1 rounded-md hover:text-light hover:bg-primary has-[input:checked]:text-light has-[input:checked]:bg-primary">
+                <input type="radio" class="arr-attribute-input hidden" value="{{@key}}">
                 <span>{{label}}</span>
             </label>
         {{else}}
@@ -47,11 +46,11 @@
         {{/each}}
     </section>
 
-    <h3 class="module-title">Sélectionner un Skill</h3>
-    <section id="skillsList" class="grid-4c">
+    <h3 class="border-b-1 border-light text-light">Sélectionner un Skill</h3>
+    <section class="grid  grid-cols-4 gap-3 py-2">
         {{#each skills}}
-            <label  class="skill-item flex">
-                <input type="radio" name="selectedSkill" value="{{@key}}">
+            <label  class="flex items-center cursor-pointer border border-primary p-1 rounded-md hover:text-light hover:bg-primary has-[input:checked]:text-light has-[input:checked]:bg-primary">
+                <input type="radio" class="arr-skill-input hidden" value="{{@key}}">
                 <span>{{label}}</span>
             </label>
         {{else}}
@@ -59,21 +58,23 @@
         {{/each}}
     </section>
 
-    <h3 class="module-title">Paramètres complémentaires</h3>
-    <section>
-        <label class="param-item flex">
-            <!-- TODO mettre la checkbox en  -->
-            <input id="rollForMissing" type="checkbox" checked>
+    <h3 class="border-b-1 border-light text-light">Paramètres complémentaires</h3>
+    <section class="items-center flex flex-wrap py-2">
+        <label class="w-fit mx-1 flex items-center cursor-pointer border border-primary p-2 rounded-lg hover:text-light hover:bg-primary has-[input:checked]:text-light has-[input:checked]:bg-primary">
+            <input id="arr-roll-for-missing" type="checkbox" class="hidden" checked>
             Lancer automatique pour les absents
+        </label>
+        <label class="w-fit mx-1 flex items-center cursor-pointer border border-primary p-2 rounded-lg hover:text-light hover:bg-primary has-[input:checked]:text-light has-[input:checked]:bg-primary">
+            <input id="arr-force-for-present" type="checkbox" class="hidden">
+            Lancer automatique pour les présents
         </label>
     </section>
         
-    <!-- TODO use dialog buttons instead ? -->
-    <div class="btn-line flex">
-        <button id="cleanup-pending-requests" class="action-button">
+    <div class="flex items-center justify-center pt-2">
+        <button id="arr-cleanup-pending-requests" class="font-normal px-4 py-2 w-fit text-sm ease-in-out duration-200 mx-1 my-0 border text-red hover:text-midnight border-red bg-midnight hover:bg-red">
             Clean pending requests
         </button>
-        <button id="rollDice" class="action-button">
+        <button id="arr-roll-button" class="font-normal w-fit px-4 py-2 text-sm ease-in-out duration-200 mx-1 my-0 border text-text hover:text-primary border-text bg-primary hover:bg-text">
             <strong>Send Rolls Request !</strong>
         </button>
     </div>
