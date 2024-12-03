@@ -1,0 +1,29 @@
+{
+    "DICEROLLREQUEST" : {
+        "MODALE" : {
+            "minimizeButton" : "Minimiser",
+            "modaleTitle" : "Demande de lancé de dés",
+            "pendingNotificationsCleared" : "Pending Notifications has been cleared",
+            "noElementSelectedNotification" : "You need to select at least a token and a skill or attribute"
+        },
+        "REQUEST" : {
+            "title": "vous êtes invité à lancer les dés pour",
+            "buttonLabel": "Lancer",
+            "dice": "Dé(s)"
+        },
+        "CONTENT": {
+            "refreshButtonLabel": "recharger",
+            "tokenTitle": "Sélectionnez un ou plusieurs tokens",
+            "emptyTokenList": "No Tokens avaiable. Please make sure you have tokens on the Canvas",
+            "attributeTitle": "Sélectionner un attributs",
+            "emptyAttributeList": "Unable to load Attributes from AlienRPG",
+            "skillTitle": "Sélectionner un Skill",
+            "emptySkillList": "Unable to load Skills from AlienRPG",
+            "paramTitle": "Paramètres complémentaires",
+            "rollForMissingLabel": "Lancer automatique pour les absents",
+            "rollForPresentLabel": "Lancer automatique pour les présents",
+            "cleaningButtonLabel": "Clean pending requests",
+            "sendButtonLabel": "Send Rolls Request !"
+        }
+    }
+}

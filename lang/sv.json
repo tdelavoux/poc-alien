@@ -1,0 +1,29 @@
+{
+    "DICEROLLREQUEST" : {
+        "MODALE" : {
+            "minimizeButton" : "Minimera",
+            "modaleTitle" : "Tärningskast förfrågan",
+            "pendingNotificationsCleared" : "Väntande aviseringar har rensats",
+            "noElementSelectedNotification" : "Du måste välja minst en token och en färdighet eller ett attribut"
+        },
+        "REQUEST" : {
+            "title": "du är inbjuden att kasta tärningarna för",
+            "buttonLabel": "Kasta",
+            "dice": "Tärning(ar)"
+        },
+        "CONTENT": {
+            "refreshButtonLabel": "uppdatera",
+            "tokenTitle": "Välj en eller flera tokens",
+            "emptyTokenList": "Inga tokens tillgängliga. Se till att du har tokens på kartan",
+            "attributeTitle": "Välj ett attribut",
+            "emptyAttributeList": "Kan inte ladda attribut från AlienRPG",
+            "skillTitle": "Välj en färdighet",
+            "emptySkillList": "Kan inte ladda färdigheter från AlienRPG",
+            "paramTitle": "Ytterligare parametrar",
+            "rollForMissingLabel": "Automatiskt kast för frånvarande spelare",
+            "rollForPresentLabel": "Automatiskt kast för närvarande spelare",
+            "cleaningButtonLabel": "Rensa väntande förfrågningar",
+            "sendButtonLabel": "Skicka tärningskast förfrågan!"
+        }
+    }
+}

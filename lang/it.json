@@ -1,0 +1,29 @@
+{
+    "DICEROLLREQUEST" : {
+        "MODALE" : {
+            "minimizeButton" : "Minimizzare",
+            "modaleTitle" : "Richiesta di tiro dei dadi",
+            "pendingNotificationsCleared" : "Le notifiche in sospeso sono state cancellate",
+            "noElementSelectedNotification" : "È necessario selezionare almeno un token e una abilità o attributo"
+        },
+        "REQUEST" : {
+            "title": "sei invitato a tirare i dadi per",
+            "buttonLabel": "Tirare",
+            "dice": "Dado/i"
+        },
+        "CONTENT": {
+            "refreshButtonLabel": "ricaricare",
+            "tokenTitle": "Seleziona uno o più token",
+            "emptyTokenList": "Nessun token disponibile. Assicurati di avere token sulla mappa",
+            "attributeTitle": "Seleziona un attributo",
+            "emptyAttributeList": "Impossibile caricare gli attributi da AlienRPG",
+            "skillTitle": "Seleziona una abilità",
+            "emptySkillList": "Impossibile caricare le abilità da AlienRPG",
+            "paramTitle": "Parametri aggiuntivi",
+            "rollForMissingLabel": "Tiro automatico per i giocatori assenti",
+            "rollForPresentLabel": "Tiro automatico per i giocatori presenti",
+            "cleaningButtonLabel": "Cancella richieste in sospeso",
+            "sendButtonLabel": "Invia richiesta di tiro!"
+        }
+    }
+}

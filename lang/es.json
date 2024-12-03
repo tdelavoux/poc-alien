@@ -1,0 +1,29 @@
+{
+    "DICEROLLREQUEST" : {
+        "MODALE" : {
+            "minimizeButton" : "Minimizar",
+            "modaleTitle" : "Solicitud de tirada de dados",
+            "pendingNotificationsCleared" : "Las notificaciones pendientes han sido borradas",
+            "noElementSelectedNotification" : "Necesitas seleccionar al menos un token y una habilidad o atributo"
+        },
+        "REQUEST" : {
+            "title": "estás invitado a tirar los dados para",
+            "buttonLabel": "Tirar",
+            "dice": "Dado(s)"
+        },
+        "CONTENT": {
+            "refreshButtonLabel": "recargar",
+            "tokenTitle": "Selecciona uno o más tokens",
+            "emptyTokenList": "No hay tokens disponibles. Por favor, asegúrate de tener tokens en el lienzo",
+            "attributeTitle": "Selecciona un atributo",
+            "emptyAttributeList": "No se pueden cargar los atributos de AlienRPG",
+            "skillTitle": "Selecciona una habilidad",
+            "emptySkillList": "No se pueden cargar las habilidades de AlienRPG",
+            "paramTitle": "Parámetros adicionales",
+            "rollForMissingLabel": "Tirada automática para jugadores ausentes",
+            "rollForPresentLabel": "Tirada automática para jugadores presentes",
+            "cleaningButtonLabel": "Borrar solicitudes pendientes",
+            "sendButtonLabel": "¡Enviar solicitud de tirada!"
+        }
+    }
+}

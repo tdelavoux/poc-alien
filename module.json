@@ -24,6 +24,51 @@
   ],
   "styles": ["styles/main.min.css"],
   "languages": [
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+    {
+      "lang": "de",
+      "name": "Deutsch",
+      "path": "lang/de.json"
+    },
+    {
+      "lang": "es",
+      "name": "Español",
+      "path": "lang/es.json"
+    },
+    {
+      "lang": "it",
+      "name": "Italiano",
+      "path": "lang/it.json"
+    },
+    {
+      "lang": "nl",
+      "name": "Nederlands",
+      "path": "lang/nl.json"
+    },
+    {
+      "lang": "sv",
+      "name": "Svenska",
+      "path": "lang/sv.json"
+    },
+    {
+      "lang": "no",
+      "name": "Norsk",
+      "path": "lang/no.json"
+    },
+    {
+      "lang": "da",
+      "name": "Dansk",
+      "path": "lang/da.json"
+    }
   ],
   "media": [
     {
