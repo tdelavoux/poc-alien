@@ -1,0 +1,29 @@
+{
+    "DICEROLLREQUEST" : {
+        "MODALE" : {
+            "minimizeButton" : "Minimieren",
+            "modaleTitle" : "Würfelanfrage",
+            "pendingNotificationsCleared" : "Ausstehende Benachrichtigungen wurden gelöscht",
+            "noElementSelectedNotification" : "Sie müssen mindestens ein Token und eine Fertigkeit oder ein Attribut auswählen"
+        },
+        "REQUEST" : {
+            "title": "Sie sind eingeladen, die Würfel zu werfen für",
+            "buttonLabel": "Würfeln",
+            "dice": "Würfel"
+        },
+        "CONTENT": {
+            "refreshButtonLabel": "aktualisieren",
+            "tokenTitle": "Wählen Sie ein oder mehrere Tokens",
+            "emptyTokenList": "Keine Tokens verfügbar. Bitte stellen Sie sicher, dass Sie Tokens auf der Karte haben",
+            "attributeTitle": "Wählen Sie ein Attribut",
+            "emptyAttributeList": "Attribute von AlienRPG konnten nicht geladen werden",
+            "skillTitle": "Wählen Sie eine Fertigkeit",
+            "emptySkillList": "Fertigkeiten von AlienRPG konnten nicht geladen werden",
+            "paramTitle": "Zusätzliche Parameter",
+            "rollForMissingLabel": "Automatischer Wurf für abwesende Spieler",
+            "rollForPresentLabel": "Automatischer Wurf für anwesende Spieler",
+            "cleaningButtonLabel": "Ausstehende Anfragen löschen",
+            "sendButtonLabel": "Würfelanfrage senden!"
+        }
+    }
+}

@@ -34,7 +34,7 @@ export class Modale{
         const attributes   = alienConfig.attributes;
         const content      = await renderTemplate(templatePath, {tokens: tokens, skills:skills, attributes: attributes});
         const dialog       = new Dialog({
-            title  : `${config.moduleId}`,
+            title  : game.i18n.localize("DICEROLLREQUEST.MODALE.modaleTitle"),
             content: content,
             buttons: {},
             render : (html) => {
@@ -42,7 +42,7 @@ export class Modale{
                 let dialogElement = html?.closest('.dialog');
                 if(!dialogElement.find('.header-button.minimize').length){
                     let header       = dialogElement?.find('.window-header .close');
-                    let customButton = $('<a class="header-button control minimize">Minimize</a>');
+                    let customButton = $(`<a class="header-button control minimize">${game.i18n.localize("DICEROLLREQUEST.MODALE.minimizeButton")}</a>`);
                     customButton?.on('click', () => self.rootNode?.minimize());
                     header.before(customButton);
                 }
@@ -101,7 +101,7 @@ export class Modale{
         const cleanupButton = document.getElementById('arr-cleanup-pending-requests');
         cleanupButton.addEventListener('click', () => {
             ChatMessageService.cleanChatMessageByClassName('alien-request-roll');
-            ui.notifications.warn("Pending Notifications has been cleared");
+            ui.notifications.warn(game.i18n.localize("DICEROLLREQUEST.MODALE.pendingNotificationsCleared"));
         });
 
         const updateButton = document.getElementById('arr-update-modal-content');
@@ -121,7 +121,7 @@ export class Modale{
         const rollForPresent    = document.querySelector('#arr-force-for-present:checked')?.checked;
 
         if(selectedTokens.length < 1 || !rollKey){
-            ui.notifications.warn("You need to select at least a token and a skill or attribute");
+            ui.notifications.warn(game.i18n.localize("DICEROLLREQUEST.MODALE.noElementSelectedNotification"));
             return;
         }
         selectedTokens.forEach((tokenId) => {

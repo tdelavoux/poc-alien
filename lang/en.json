@@ -1,0 +1,29 @@
+{
+    "DICEROLLREQUEST" : {
+        "MODALE" : {
+            "minimizeButton" : "Minimize",
+            "modaleTitle" : "Roll request",
+            "pendingNotificationsCleared" : "Pending Notifications have been cleared",
+            "noElementSelectedNotification" : "You need to select at least a token and a skill or attribute"
+        },
+        "REQUEST" : {
+            "title": "you are invited to roll the dice for",
+            "buttonLabel": "Roll",
+            "dice": "Dice"
+        },
+        "CONTENT": {
+            "refreshButtonLabel": "refresh",
+            "tokenTitle": "Select one or more tokens",
+            "emptyTokenList": "No Tokens available. Please make sure you have tokens on the Canvas",
+            "attributeTitle": "Select an attribute",
+            "emptyAttributeList": "Unable to load Attributes from AlienRPG",
+            "skillTitle": "Select a Skill",
+            "emptySkillList": "Unable to load Skills from AlienRPG",
+            "paramTitle": "Additional parameters",
+            "rollForMissingLabel": "Automatic roll for offline players",
+            "rollForPresentLabel": "Automatic roll for online players",
+            "cleaningButtonLabel": "Clean pending requests",
+            "sendButtonLabel": "Send Rolls Request!"
+        }
+    }
+}

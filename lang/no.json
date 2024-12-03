@@ -1,0 +1,29 @@
+{
+    "DICEROLLREQUEST" : {
+        "MODALE" : {
+            "minimizeButton" : "Minimer",
+            "modaleTitle" : "Terningkast forespørsel",
+            "pendingNotificationsCleared" : "Ventende varsler er blitt ryddet",
+            "noElementSelectedNotification" : "Du må velge minst en token og en ferdighet eller et attributt"
+        },
+        "REQUEST" : {
+            "title": "du er invitert til å kaste terningene for",
+            "buttonLabel": "Kast",
+            "dice": "Terning(er)"
+        },
+        "CONTENT": {
+            "refreshButtonLabel": "oppdatere",
+            "tokenTitle": "Velg en eller flere tokens",
+            "emptyTokenList": "Ingen tokens tilgjengelig. Sørg for at du har tokens på kartet",
+            "attributeTitle": "Velg et attributt",
+            "emptyAttributeList": "Kan ikke laste attributter fra AlienRPG",
+            "skillTitle": "Velg en ferdighet",
+            "emptySkillList": "Kan ikke laste ferdigheter fra AlienRPG",
+            "paramTitle": "Tilleggsparametere",
+            "rollForMissingLabel": "Automatisk kast for fraværende spillere",
+            "rollForPresentLabel": "Automatisk kast for tilstedeværende spillere",
+            "cleaningButtonLabel": "Rydd ventende forespørsler",
+            "sendButtonLabel": "Send terningkast forespørsel!"
+        }
+    }
+}

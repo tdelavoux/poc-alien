@@ -1,0 +1,29 @@
+{
+    "DICEROLLREQUEST" : {
+        "MODALE" : {
+            "minimizeButton" : "Minimaliseren",
+            "modaleTitle" : "Dobbelsteenworp verzoek",
+            "pendingNotificationsCleared" : "In afwachting van meldingen zijn gewist",
+            "noElementSelectedNotification" : "Je moet ten minste een token en een vaardigheid of attribuut selecteren"
+        },
+        "REQUEST" : {
+            "title": "je bent uitgenodigd om de dobbelstenen te gooien voor",
+            "buttonLabel": "Gooien",
+            "dice": "Dobbelsteen(en)"
+        },
+        "CONTENT": {
+            "refreshButtonLabel": "verversen",
+            "tokenTitle": "Selecteer een of meer tokens",
+            "emptyTokenList": "Geen tokens beschikbaar. Zorg ervoor dat je tokens op het canvas hebt",
+            "attributeTitle": "Selecteer een attribuut",
+            "emptyAttributeList": "Kan attributen van AlienRPG niet laden",
+            "skillTitle": "Selecteer een vaardigheid",
+            "emptySkillList": "Kan vaardigheden van AlienRPG niet laden",
+            "paramTitle": "Aanvullende parameters",
+            "rollForMissingLabel": "Automatische worp voor afwezige spelers",
+            "rollForPresentLabel": "Automatische worp voor aanwezige spelers",
+            "cleaningButtonLabel": "In afwachting van verzoeken wissen",
+            "sendButtonLabel": "Stuur dobbelsteenworp verzoek!"
+        }
+    }
+}
